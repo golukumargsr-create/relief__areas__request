@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character Encoding and Responsive Viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - Centralized Disaster Relief Resource Coordination Platform for Emergency Management.">
+  <title>ReliefGrid | Disaster Operations Dashboard</title>
+  <!-- Shared External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =======================================================================
+       TOP EMERGENCY BANNER (National Emergency Alert Ribbon)
+       ======================================================================= -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>NATIONAL EMERGENCY OPERATIONS CENTER (NEOC) ACTIVE</strong> &mdash; 
+    Monsoon Cyclone & Flood Relief Grid v2.4 | Central Toll-Free Helpline: <strong>1070 / 112</strong>
+  </aside>
+
+  <!-- =======================================================================
+       SHARED SITE HEADER & NAVIGATION
+       ======================================================================= -->
+  <header class="site-header">
+    <div class="header-container">
+      <!-- Platform Branding -->
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <!-- Main Navigation Menu (Semantic Nav with Active Link) -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html" class="active" aria-current="page">Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas</a></li>
+          <li><a href="allocation.html">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       MAIN CONTENT CONTAINER
+       ======================================================================= -->
+  <main class="main-wrapper" id="main-content">
+
+    <!-- Page Header / Intro Section -->
+    <header class="page-intro">
+      <div>
+        <h2>National Incident Dashboard</h2>
+        <p>Live situational overview of emergency relief requirements, warehouse logistics, volunteer mobilization, and ongoing supply dispatches across active disaster zones.</p>
+      </div>
+      <div>
+        <span class="page-badge">Status: Level-3 National Response Activated</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         SECTION 1: SUMMARY METRICS CARDS (CSS Grid)
+         =================================================================== -->
+    <section aria-labelledby="summary-metrics-title">
+      <h3 id="summary-metrics-title" class="visually-hidden" style="display:none;">Key Summary Metrics</h3>
+      <div class="metrics-grid">
+        
+        <!-- Total Requests Card -->
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Total Requests</span>
+            <span class="metric-icon" aria-hidden="true">&#128221;</span>
+          </div>
+          <p class="metric-value">1,482</p>
+          <p class="metric-sub">Across <strong>14 Districts</strong></p>
+        </article>
+
+        <!-- Critical Requests Card (Red Accent) -->
+        <article class="metric-card critical-border">
+          <div class="metric-header">
+            <span class="metric-title">Critical Requests</span>
+            <span class="metric-icon" aria-hidden="true">&#9888;</span>
+          </div>
+          <p class="metric-value" style="color: var(--priority-critical);">128</p>
+          <p class="metric-sub"><strong>Immediate</strong> life-safety threat</p>
+        </article>
+
+        <!-- Available Resources Card (Green Accent) -->
+        <article class="metric-card low-border">
+          <div class="metric-header">
+            <span class="metric-title">Available Resources</span>
+            <span class="metric-icon" aria-hidden="true">&#128230;</span>
+          </div>
+          <p class="metric-value" style="color: var(--priority-low);">48,350</p>
+          <p class="metric-sub">Units stocked in <strong>6 Hubs</strong></p>
+        </article>
+
+        <!-- Active Volunteers Card -->
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Active Volunteers</span>
+            <span class="metric-icon" aria-hidden="true">&#128101;</span>
+          </div>
+          <p class="metric-value">640</p>
+          <p class="metric-sub"><strong>82 Medics</strong> &amp; First Responders</p>
+        </article>
+
+        <!-- Areas Affected Card (Orange Accent) -->
+        <article class="metric-card high-border">
+          <div class="metric-header">
+            <span class="metric-title">Affected Areas</span>
+            <span class="metric-icon" aria-hidden="true">&#127758;</span>
+          </div>
+          <p class="metric-value" style="color: var(--priority-high);">26</p>
+          <p class="metric-sub"><strong>4 Red-Alert</strong> zones</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2 & 3: TWO-COLUMN DASHBOARD (Stock Bars & Recent Activity)
+         =================================================================== -->
+    <div class="dashboard-grid">
+      
+      <!-- Left Column: Critical Stock Depletion (Pure CSS Stock Bars) -->
+      <section class="dashboard-card" aria-labelledby="stock-bars-title">
+        <header class="dashboard-card-header">
+          <h3 id="stock-bars-title">Warehouse Stock Health (Pure CSS Indicators)</h3>
+          <a href="inventory.html" class="field-help" style="font-weight: 600;">View All Inventory &rarr;</a>
+        </header>
+        <div class="dashboard-card-body">
+          <div class="stock-bars-container">
+            
+            <!-- Item 1: Drinking Water -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Drinking Water (20L Jerry Cans)</span>
+                <span class="stock-qty">4,800 / 20,000 Cans (24% - Critical)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100" aria-label="Drinking Water Stock 24 percent">
+                <div class="progress-fill fill-critical" style="width: 24%;"></div>
+              </div>
+            </div>
+
+            <!-- Item 2: Ready-to-Eat Emergency Meals -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Ready-to-Eat Ration Kits</span>
+                <span class="stock-qty">7,200 / 18,000 Kits (40% - Low)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Ration Kits Stock 40 percent">
+                <div class="progress-fill fill-low" style="width: 40%;"></div>
+              </div>
+            </div>
+
+            <!-- Item 3: Trauma Care & Surgical Kits -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Surgical &amp; Trauma Care Packs</span>
+                <span class="stock-qty">1,450 / 2,500 Packs (58% - Medium)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100" aria-label="Surgical Kits Stock 58 percent">
+                <div class="progress-fill fill-medium" style="width: 58%;"></div>
+              </div>
+            </div>
+
+            <!-- Item 4: All-Weather Family Shelter Tents -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Emergency Family Tents (10-Person)</span>
+                <span class="stock-qty">850 / 4,000 Tents (21% - Critical)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100" aria-label="Tents Stock 21 percent">
+                <div class="progress-fill fill-critical" style="width: 21%;"></div>
+              </div>
+            </div>
+
+            <!-- Item 5: Chlorine Disinfectant & Hygiene Kits -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Sanitation &amp; Hygiene Buckets</span>
+                <span class="stock-qty">11,200 / 14,000 Buckets (80% - High)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Sanitation Buckets Stock 80 percent">
+                <div class="progress-fill fill-high" style="width: 80%;"></div>
+              </div>
+            </div>
+
+            <!-- Item 6: Thermal Blankets -->
+            <div class="stock-item">
+              <div class="stock-info">
+                <span class="stock-name">Fleece Thermal Blankets</span>
+                <span class="stock-qty">19,500 / 22,000 Units (88% - High)</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Thermal Blankets Stock 88 percent">
+                <div class="progress-fill fill-high" style="width: 88%;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Recent Operational Activity Stream -->
+      <section class="dashboard-card" aria-labelledby="activity-title">
+        <header class="dashboard-card-header">
+          <h3 id="activity-title">Recent Operational Activity</h3>
+          <span class="page-badge" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">Live Feed</span>
+        </header>
+        <div class="dashboard-card-body">
+          <ul class="activity-list">
+            
+            <li class="activity-item">
+              <span class="activity-icon icon-alert" aria-hidden="true">&#9888;</span>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Critical Request Logged:</strong> Wayanad Hill Sector-3 requested 450 ampoules of Anti-Snake Venom.</p>
+                <time class="activity-time" datetime="2026-10-18T22:15">15 minutes ago &bull; Wayanad, Kerala</time>
+              </div>
+            </li>
+
+            <li class="activity-item">
+              <span class="activity-icon icon-dispatch" aria-hidden="true">&#128666;</span>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Convoy Dispatched:</strong> 2 NDRF trucks loaded with 1,200 water cans departed Kochi Depot for Aluva.</p>
+                <time class="activity-time" datetime="2026-10-18T21:40">45 minutes ago &bull; Central Depot #2</time>
+              </div>
+            </li>
+
+            <li class="activity-item">
+              <span class="activity-icon icon-volunteer" aria-hidden="true">&#129489;</span>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Volunteer Team Mobilized:</strong> Rapid Medical Team (14 paramedics) assigned to Bhuj Community Hospital.</p>
+                <time class="activity-time" datetime="2026-10-18T20:10">2 hours ago &bull; Kutch, Gujarat</time>
+              </div>
+            </li>
+
+            <li class="activity-item">
+              <span class="activity-icon icon-delivered" aria-hidden="true">&#10004;</span>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Consignment Delivered:</strong> 500 Tarpaulin family shelters successfully handed over at Kendrapara Shelter #4.</p>
+                <time class="activity-time" datetime="2026-10-18T18:30">4 hours ago &bull; Kendrapara, Odisha</time>
+              </div>
+            </li>
+
+            <li class="activity-item">
+              <span class="activity-icon icon-alert" aria-hidden="true">&#9888;</span>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Warehouse Alert:</strong> High-energy ration kits fell below 25% safety reserve threshold at Guwahati Depot.</p>
+                <time class="activity-time" datetime="2026-10-18T16:00">6 hours ago &bull; Inventory Operations</time>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================
+         SECTION 4: ACTIVE RELIEF REQUESTS OVERVIEW TABLE
+         =================================================================== -->
+    <section class="table-container" aria-labelledby="overview-table-title">
+      <header class="table-header-bar">
+        <div>
+          <h3 id="overview-table-title">High-Priority Request Status Overview</h3>
+          <p class="field-help">Real-time status of top emergency requests requiring inter-agency fulfillment.</p>
+        </div>
+        <div>
+          <a href="relief-requests.html" class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.825rem;">+ Create New Request</a>
+        </div>
+      </header>
+
+      <div class="table-responsive">
+        <table class="data-table" summary="Overview of latest relief supply requests categorized by priority and fulfillment status">
+          <thead>
+            <tr>
+              <th scope="col">Request ID</th>
+              <th scope="col">Affected Area / District</th>
+              <th scope="col">Disaster Incident</th>
+              <th scope="col">Resource Category</th>
+              <th scope="col">Requested Qty</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Current Status</th>
+              <th scope="col">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1 -->
+            <tr>
+              <td><code>REQ-KL-901</code></td>
+              <td><strong>Meppadi, Wayanad</strong> (Kerala)</td>
+              <td>Landslide / Mudflow</td>
+              <td>Medical Trauma Supplies</td>
+              <td class="cell-number">600 Kits</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="badge badge-progress">In Transit</span></td>
+              <td>18-Oct 21:30</td>
+            </tr>
+            <!-- Row 2 -->
+            <tr>
+              <td><code>REQ-GJ-442</code></td>
+              <td><strong>Bhachau, Kutch</strong> (Gujarat)</td>
+              <td>Earthquake 5.8M</td>
+              <td>Emergency Family Tents</td>
+              <td class="cell-number">450 Tents</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td>18-Oct 20:45</td>
+            </tr>
+            <!-- Row 3 -->
+            <tr>
+              <td><code>REQ-OD-781</code></td>
+              <td><strong>Paradeep Coast</strong> (Odisha)</td>
+              <td>Cyclone 'Dana'</td>
+              <td>Drinking Water (20L)</td>
+              <td class="cell-number">2,500 Cans</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="badge badge-progress">In Transit</span></td>
+              <td>18-Oct 19:15</td>
+            </tr>
+            <!-- Row 4 -->
+            <tr>
+              <td><code>REQ-AS-319</code></td>
+              <td><strong>Silchar, Cachar</strong> (Assam)</td>
+              <td>Barak River Flooding</td>
+              <td>Ready-to-Eat Food Packets</td>
+              <td class="cell-number">5,000 Packs</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="badge badge-shortage">Shortage</span></td>
+              <td>18-Oct 17:20</td>
+            </tr>
+            <!-- Row 5 -->
+            <tr>
+              <td><code>REQ-HP-112</code></td>
+              <td><strong>Manali Valley</strong> (Himachal)</td>
+              <td>Flash Flood &amp; Debris</td>
+              <td>Fleece Thermal Blankets</td>
+              <td class="cell-number">1,200 Units</td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+              <td>18-Oct 14:05</td>
+            </tr>
+            <!-- Row 6 -->
+            <tr>
+              <td><code>REQ-MH-603</code></td>
+              <td><strong>Chiplun, Ratnagiri</strong> (Maharashtra)</td>
+              <td>Vashishti River Surge</td>
+              <td>Chlorine Water Tablets</td>
+              <td class="cell-number">20,000 Tabs</td>
+              <td><span class="badge badge-low">Low</span></td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+              <td>18-Oct 11:40</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =======================================================================
+       SHARED SITE FOOTER
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      
+      <!-- Column 1: Mission Statement -->
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <!-- Column 2: Navigation Links -->
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Response Standards -->
+      <div class="footer-col">
+        <h4>Response Protocols</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">NDRF Standard Operating Proc.</a></li>
+          <li><a href="#main-content">Sphere Humanitarian Charter</a></li>
+          <li><a href="#main-content">Cold-Chain Vaccine Rules</a></li>
+          <li><a href="#main-content">Air-Drop Safety Guidelines</a></li>
+          <li><a href="#main-content">Rapid Damage Assessment</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: 24/7 Helplines -->
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>State Control Room: <span>1077</span></li>
+          <li>Ambulance Service: <span>108</span></li>
+          <li>Red Cross Relief: <span>1800-11-2233</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Compliance -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine (Viva Demonstration & LocalStorage State) -->
+  <script src="prototype.js"></script>
+</body>
+</html>

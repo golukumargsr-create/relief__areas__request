@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - Log and Track Emergency Relief Supply Requests.">
+  <title>ReliefGrid | Relief Requests Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Emergency Ribbon -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>24x7 INCIDENT LOGGING DESK ACTIVE</strong> &mdash; 
+    Priority dispatch protocols apply to all Critical (Code-Red) requisitions.
+  </aside>
+
+  <!-- Shared Header & Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="relief-requests.html" class="active" aria-current="page">Relief Requests</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas</a></li>
+          <li><a href="allocation.html">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper" id="main-content">
+
+    <header class="page-intro">
+      <div>
+        <h2>Relief Requisitions &amp; Demands</h2>
+        <p>Field coordinators, incident commanders, and authorized NGOs can file emergency requisitions for food, drinking water, medical kits, and rescue gear.</p>
+      </div>
+      <div>
+        <span class="page-badge">Requisitions Active: 1,482</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         SECTION 1: RELIEF REQUEST SUBMISSION FORM
+         Demonstrates HTML5 form controls, validation, fieldset, legend, 
+         optgroup, datalist, radio groups, and required attributes.
+         =================================================================== -->
+    <section class="form-card" aria-labelledby="request-form-heading">
+      <h3 id="request-form-heading">File an Emergency Relief Request</h3>
+      <p class="form-subtitle">All fields marked with an asterisk (<span class="required-indicator">*</span>) are mandatory under Disaster Management Act protocols.</p>
+
+      <form action="#" method="post" autocomplete="on">
+        
+        <!-- Fieldset 1: Requester & Agency Details -->
+        <fieldset>
+          <legend>1. Requester &amp; Authority Details</legend>
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label for="requester-name">Full Name of Officer / Coordinator <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="requester-name" 
+                name="requester_name" 
+                placeholder="e.g., Rajesh Pillai" 
+                required 
+                minlength="3" 
+                maxlength="60"
+                pattern="^[A-Za-z\s\.]+$"
+                title="Please enter a valid name using alphabetic characters only."
+              >
+              <span class="field-help">Designated on-ground incident reporting officer.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="requester-contact">Emergency Contact Phone Number <span class="required-indicator">*</span></label>
+              <input 
+                type="tel" 
+                id="requester-contact" 
+                name="requester_contact" 
+                placeholder="e.g., 9876543210" 
+                required 
+                pattern="^[0-9]{10}$" 
+                title="Must be a valid 10-digit mobile number."
+              >
+              <span class="field-help">10-digit primary mobile or satellite phone number.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="requester-agency">Reporting Agency / Organization <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="requester-agency" 
+                name="requester_agency" 
+                list="agency-suggestions" 
+                placeholder="Select or type agency..." 
+                required
+              >
+              <!-- Datalist for fast selection -->
+              <datalist id="agency-suggestions">
+                <option value="National Disaster Response Force (NDRF)">
+                <option value="State Disaster Management Authority (SDMA)">
+                <option value="District Emergency Operations Center (DEOC)">
+                <option value="Indian Red Cross Society">
+                <option value="Doctors Without Borders / MSF">
+                <option value="Civil Defense Corps">
+              </datalist>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Fieldset 2: Disaster Zone & Required Resource -->
+        <fieldset>
+          <legend>2. Location &amp; Resource Requirements</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="affected-area-select">Target Disaster Zone / District <span class="required-indicator">*</span></label>
+              <select id="affected-area-select" name="affected_area" required>
+                <option value="" disabled selected>-- Select Incident Area --</option>
+                
+                <!-- Grouping by geographical disaster corridor -->
+                <optgroup label="Southern Flood & Landslide Zone">
+                  <option value="Wayanad, Kerala (Meppadi Sector)">Wayanad, Kerala &mdash; Meppadi Sector</option>
+                  <option value="Idukki, Kerala (Munnar Ghats)">Idukki, Kerala &mdash; Munnar Ghats</option>
+                  <option value="Alappuzha, Kerala (Kuttanad Lowlands)">Alappuzha, Kerala &mdash; Kuttanad Lowlands</option>
+                </optgroup>
+
+                <optgroup label="Western Seismic Zone">
+                  <option value="Kutch, Gujarat (Bhachau & Rapar)">Kutch, Gujarat &mdash; Bhachau &amp; Rapar</option>
+                  <option value="Surendranagar, Gujarat (Dhrangadhra)">Surendranagar, Gujarat &mdash; Dhrangadhra</option>
+                </optgroup>
+
+                <optgroup label="Eastern Coastal Cyclone Zone">
+                  <option value="Kendrapara, Odisha (Rajnagar Coastal)">Kendrapara, Odisha &mdash; Rajnagar Coastal</option>
+                  <option value="Balasore, Odisha (Chandipur Sector)">Balasore, Odisha &mdash; Chandipur Sector</option>
+                  <option value="South 24 Parganas, West Bengal (Sundarbans)">South 24 Parganas, West Bengal &mdash; Sundarbans</option>
+                </optgroup>
+
+                <optgroup label="Northern Hill & Riverine Zone">
+                  <option value="Joshimath, Uttarakhand (Chamoli)">Joshimath, Uttarakhand &mdash; Chamoli</option>
+                  <option value="Cachar, Assam (Silchar Riverbank)">Cachar, Assam &mdash; Silchar Riverbank</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="resource-category">Resource Category Needed <span class="required-indicator">*</span></label>
+              <select id="resource-category" name="resource_category" required>
+                <option value="" disabled selected>-- Select Resource Category --</option>
+                <option value="Food & Rations">Food Supplies (Ready-to-Eat / Dry Rations)</option>
+                <option value="Clean Drinking Water">Potable Water (Bottled / Jerry Cans / Purifiers)</option>
+                <option value="Medical & Trauma Care">Medical, Surgical, Anti-Venom &amp; First Aid</option>
+                <option value="Emergency Shelter">Emergency Family Tents &amp; Tarpaulins</option>
+                <option value="Sanitation & Hygiene">Sanitation, Disinfection &amp; Baby Hygiene Kits</option>
+                <option value="Rescue Equipment">Power Generators &amp; Inflatable Boats</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="resource-quantity">Required Quantity &amp; Units <span class="required-indicator">*</span></label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input 
+                  type="number" 
+                  id="resource-quantity" 
+                  name="resource_quantity" 
+                  placeholder="e.g., 500" 
+                  min="1" 
+                  max="50000" 
+                  step="1"
+                  required
+                  style="flex: 2;"
+                >
+                <select id="resource-unit" name="resource_unit" required style="flex: 1;">
+                  <option value="Units / Packs">Packs</option>
+                  <option value="Cans (20L)">Cans (20L)</option>
+                  <option value="Kits">Kits</option>
+                  <option value="Tents">Tents</option>
+                  <option value="Metric Tons">Tonnes</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Fieldset 3: Urgency, Logistics & Description -->
+        <fieldset>
+          <legend>3. Urgency, Timeline &amp; Delivery Logistics</legend>
+          
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label>Requisition Priority Level <span class="required-indicator">*</span></label>
+            <div class="radio-group" role="radiogroup" aria-label="Priority Level Options">
+              
+              <label class="radio-pill-label">
+                <input type="radio" name="priority_level" value="Critical" required>
+                <span><strong>Critical (Code Red)</strong> &mdash; 0 to 6 Hours (Life-saving)</span>
+              </label>
+
+              <label class="radio-pill-label">
+                <input type="radio" name="priority_level" value="High">
+                <span><strong>High (Orange)</strong> &mdash; Within 12 Hours</span>
+              </label>
+
+              <label class="radio-pill-label">
+                <input type="radio" name="priority_level" value="Medium">
+                <span><strong>Medium (Yellow)</strong> &mdash; 24-48 Hours</span>
+              </label>
+
+              <label class="radio-pill-label">
+                <input type="radio" name="priority_level" value="Low">
+                <span><strong>Low (Green)</strong> &mdash; Replenishment Routine</span>
+              </label>
+
+            </div>
+          </div>
+
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label for="required-by-date">Supplies Needed By (Target Date) <span class="required-indicator">*</span></label>
+              <input 
+                type="date" 
+                id="required-by-date" 
+                name="required_by_date" 
+                min="2026-10-18" 
+                max="2026-12-31" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="delivery-landmark">Landing Zone / Drop-off Landmark <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="delivery-landmark" 
+                name="delivery_landmark" 
+                placeholder="e.g., St. Joseph School Relief Camp, Ground Floor" 
+                required
+              >
+              <span class="field-help">Helipad, relief shelter coordinate, or identifiable milestone.</span>
+            </div>
+
+          </div>
+
+          <div class="form-group span-full" style="margin-top: 1.25rem;">
+            <label for="request-description">Detailed Incident Situation &amp; Needs Assessment <span class="required-indicator">*</span></label>
+            <textarea 
+              id="request-description" 
+              name="request_description" 
+              rows="4" 
+              placeholder="State the ground conditions, estimated individuals cut off, specific medicines required (e.g. insulin, ORS, sterile bandages), and whether air-drop is mandated due to road washouts..." 
+              required
+              minlength="20"
+              maxlength="1000"
+            ></textarea>
+            <span class="field-help">Provide at least 20 characters detailing ground accessibility.</span>
+          </div>
+
+        </fieldset>
+
+        <!-- Form Submission Buttons -->
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Clear Requisition Form</button>
+          <button type="submit" class="btn btn-primary">&#128228; Submit Emergency Request</button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: EXISTING REQUESTS TABLE WITH PRIORITY & STATUS BADGES
+         =================================================================== -->
+    <section class="table-container" aria-labelledby="existing-requests-title">
+      <header class="table-header-bar">
+        <div>
+          <h3 id="existing-requests-title">Active Field Requisitions Database</h3>
+          <p class="field-help">Showing 6 verified emergency requisitions currently monitored by NEOC dispatchers.</p>
+        </div>
+      </header>
+
+      <div class="table-responsive">
+        <table class="data-table" summary="Detailed register of verified field relief requisitions with status, priority, and quantities">
+          <thead>
+            <tr>
+              <th scope="col">Requisition ID</th>
+              <th scope="col">Reporting Officer / Agency</th>
+              <th scope="col">Disaster Location</th>
+              <th scope="col">Required Item &amp; Details</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Status</th>
+              <th scope="col">Needed By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1: Critical -->
+            <tr>
+              <td><code>REQ-2026-101</code></td>
+              <td>
+                <strong>Dr. Anita Nair</strong><br>
+                <small style="color:var(--color-text-muted);">District Health Office, Wayanad</small>
+              </td>
+              <td>Meppadi Camp, Wayanad (KL)</td>
+              <td>Emergency Trauma Packs &amp; Anti-Venom</td>
+              <td class="cell-number">600 Kits</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="badge badge-progress">In Progress</span></td>
+              <td>19-Oct-2026</td>
+            </tr>
+
+            <!-- Row 2: Critical -->
+            <tr>
+              <td><code>REQ-2026-102</code></td>
+              <td>
+                <strong>Capt. V. K. Jadeja</strong><br>
+                <small style="color:var(--color-text-muted);">NDRF 6th Battalion</small>
+              </td>
+              <td>Bhachau Old Town, Kutch (GJ)</td>
+              <td>Weather-Proof Family Tents</td>
+              <td class="cell-number">450 Tents</td>
+              <td><span class="badge badge-critical">Critical</span></td>
+              <td><span class="badge badge-pending">Pending</span></td>
+              <td>19-Oct-2026</td>
+            </tr>
+
+            <!-- Row 3: High -->
+            <tr>
+              <td><code>REQ-2026-103</code></td>
+              <td>
+                <strong>P. Mohanty</strong><br>
+                <small style="color:var(--color-text-muted);">Block Dev. Officer, Rajnagar</small>
+              </td>
+              <td>Rajnagar Cyclone Shelter, Kendrapara (OD)</td>
+              <td>Drinking Water Cans (20-Liter)</td>
+              <td class="cell-number">2,500 Cans</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="badge badge-progress">In Progress</span></td>
+              <td>20-Oct-2026</td>
+            </tr>
+
+            <!-- Row 4: High -->
+            <tr>
+              <td><code>REQ-2026-104</code></td>
+              <td>
+                <strong>Bikramjit Sharma</strong><br>
+                <small style="color:var(--color-text-muted);">Assam State Disaster Mgmt</small>
+              </td>
+              <td>Silchar Town Relief Camp (AS)</td>
+              <td>High-Calorie Ready-to-Eat Food</td>
+              <td class="cell-number">5,000 Packs</td>
+              <td><span class="badge badge-high">High</span></td>
+              <td><span class="badge badge-shortage">Shortage</span></td>
+              <td>20-Oct-2026</td>
+            </tr>
+
+            <!-- Row 5: Medium -->
+            <tr>
+              <td><code>REQ-2026-105</code></td>
+              <td>
+                <strong>Suresh Rawat</strong><br>
+                <small style="color:var(--color-text-muted);">Tehsildar Office, Joshimath</small>
+              </td>
+              <td>Ravigram Sector, Joshimath (UK)</td>
+              <td>Thermal Fleece Blankets &amp; Warm Mats</td>
+              <td class="cell-number">1,200 Units</td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+              <td>18-Oct-2026</td>
+            </tr>
+
+            <!-- Row 6: Low -->
+            <tr>
+              <td><code>REQ-2026-106</code></td>
+              <td>
+                <strong>Sunita Gaikwad</strong><br>
+                <small style="color:var(--color-text-muted);">Ratnagiri Municipal Relief</small>
+              </td>
+              <td>Chiplun Flood Shelter #2 (MH)</td>
+              <td>Chlorine Water Tablets &amp; Bleach Bags</td>
+              <td class="cell-number">20,000 Tabs</td>
+              <td><span class="badge badge-low">Low</span></td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+              <td>18-Oct-2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shared Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Response Standards</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">Requisition Priority Scale</a></li>
+          <li><a href="#main-content">Validation SOP 04</a></li>
+          <li><a href="#main-content">Field Verification Protocol</a></li>
+          <li><a href="#main-content">Air Drop Criteria</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>State Control Room: <span>1077</span></li>
+          <li>Ambulance Service: <span>108</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine -->
+  <script src="prototype.js"></script>
+</body>
+</html>

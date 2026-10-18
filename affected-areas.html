@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - Monitor Affected Disaster Zones, Severity Classifications, and Ground Casualties.">
+  <title>ReliefGrid | Affected Disaster Areas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Emergency Ribbon -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>AFFECTED REGIONS MONITORING SYSTEM</strong> &mdash; 
+    Current Active Hotspots: 4 Red Alert Zones, 8 Orange Alert Sectors, 14 Monitored Basins.
+  </aside>
+
+  <!-- Shared Header & Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="affected-areas.html" class="active" aria-current="page">Affected Areas</a></li>
+          <li><a href="allocation.html">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper" id="main-content">
+
+    <header class="page-intro">
+      <div>
+        <h2>Active Disaster Zones &amp; Hotspots</h2>
+        <p>Comprehensive field tracking of affected districts, casualty estimates, demographic vulnerability, nodal incident commanders, and localized survival requirements.</p>
+      </div>
+      <div>
+        <span class="page-badge">Disaster Zones Active: 26 Sectors</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         SECTION 1: AFFECTED AREA PROFILE CARDS (CSS Grid Layout)
+         Demonstrating rich responsive card UI with severity badges and tags
+         =================================================================== -->
+    <section aria-labelledby="area-cards-heading">
+      <h3 id="area-cards-heading" style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 1.25rem;">
+        Emergency Area Profiles (Priority Incident Grid)
+      </h3>
+
+      <div class="areas-grid">
+        
+        <!-- Card 1: Wayanad, Kerala -->
+        <article class="area-card" aria-labelledby="area-title-1">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-1">Meppadi &amp; Chooralmala</h3>
+              <p class="area-location">Wayanad District &bull; Kerala</p>
+            </div>
+            <span class="badge badge-critical">Level 4 - Critical</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Massive Hill Landslide</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">18,500 Displaced</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">14 Designated Shelters</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">Dr. A. Nair (ADM) &bull; 9447102030</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Trauma Kits</span>
+                <span class="need-tag">Anti-Venom</span>
+                <span class="need-tag">Temporary Bailey Bridges</span>
+                <span class="need-tag">Thermal Blankets</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Air-Drop Required: <strong>YES</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 18 Demands &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 2: Bhachau, Gujarat -->
+        <article class="area-card" aria-labelledby="area-title-2">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-2">Bhachau &amp; Rapar Belt</h3>
+              <p class="area-location">Kutch District &bull; Gujarat</p>
+            </div>
+            <span class="badge badge-critical">Level 4 - Critical</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Earthquake (5.8 Magnitude)</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">32,400 Residents</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">22 Open Tented Camps</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">Capt. V. Jadeja &bull; 9825019283</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Family Tents</span>
+                <span class="need-tag">Surgical Sutures</span>
+                <span class="need-tag">Heavy Cranes</span>
+                <span class="need-tag">Purified Water</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Road Access: <strong>Partially Cleared</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 24 Demands &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 3: Rajnagar, Odisha -->
+        <article class="area-card" aria-labelledby="area-title-3">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-3">Rajnagar Coastal Strip</h3>
+              <p class="area-location">Kendrapara District &bull; Odisha</p>
+            </div>
+            <span class="badge badge-high">Level 3 - High</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Severe Cyclone 'Dana' Surge</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">45,000 Coastal Inhabitants</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">38 Multi-Hazard Shelters</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">P. Mohanty (BDO) &bull; 9776044123</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Water 20L Cans</span>
+                <span class="need-tag">Dry Rations</span>
+                <span class="need-tag">Chlorine Tablets</span>
+                <span class="need-tag">Solar Torches</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Power Grid: <strong>Down (Generators Needed)</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 14 Demands &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 4: Silchar, Assam -->
+        <article class="area-card" aria-labelledby="area-title-4">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-4">Silchar Municipal &amp; Riverbank</h3>
+              <p class="area-location">Cachar District &bull; Assam</p>
+            </div>
+            <span class="badge badge-high">Level 3 - High</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Barak River Embankment Breach</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">62,000 Marooned Citizens</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">41 Elevated Relief Shelters</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">B. Sharma (SDMA) &bull; 9435012948</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Rescue Speedboats</span>
+                <span class="need-tag">Infant Baby Food</span>
+                <span class="need-tag">Water Tanks</span>
+                <span class="need-tag">ORS Sachets</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Access Mode: <strong>Boats Only</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 29 Demands &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 5: Joshimath, Uttarakhand -->
+        <article class="area-card" aria-labelledby="area-title-5">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-5">Ravigram &amp; Sunil Ward</h3>
+              <p class="area-location">Chamoli District &bull; Uttarakhand</p>
+            </div>
+            <span class="badge badge-medium">Level 2 - Medium</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Land Subsidence &amp; Fissures</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">8,200 Evacuated Residents</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">9 Temporary Municipal Centers</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">S. Rawat (Tehsildar) &bull; 9412033482</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Thermal Quilts</span>
+                <span class="need-tag">Heating Stoves</span>
+                <span class="need-tag">Prefabs</span>
+                <span class="need-tag">Chronic Meds</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Terrain Stability: <strong>Unstable Slope</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 11 Demands &rarr;</a>
+          </footer>
+        </article>
+
+        <!-- Card 6: Chiplun, Maharashtra -->
+        <article class="area-card" aria-labelledby="area-title-6">
+          <header class="area-card-header">
+            <div class="area-title-group">
+              <h3 id="area-title-6">Chiplun Urban &amp; Bazar</h3>
+              <p class="area-location">Ratnagiri District &bull; Maharashtra</p>
+            </div>
+            <span class="badge badge-low">Level 1 - Low</span>
+          </header>
+          <div class="area-card-body">
+            <div class="area-stat-row">
+              <span class="area-stat-label">Disaster Type</span>
+              <span class="area-stat-value">Vashishti River Flash Overflow</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Population Affected</span>
+              <span class="area-stat-value">14,000 In Rehab Stage</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Active Relief Camps</span>
+              <span class="area-stat-value">6 Transition Camps</span>
+            </div>
+            <div class="area-stat-row">
+              <span class="area-stat-label">Nodal Incident Officer</span>
+              <span class="area-stat-value">S. Gaikwad &bull; 9820149021</span>
+            </div>
+            <div>
+              <span class="area-stat-label" style="font-size: 0.8125rem;">Immediate Critical Needs:</span>
+              <div class="needs-tag-list">
+                <span class="need-tag">Bleach Disinfection</span>
+                <span class="need-tag">Sanitary Pads</span>
+                <span class="need-tag">Mud Pumps</span>
+                <span class="need-tag">Skin Ointments</span>
+              </div>
+            </div>
+          </div>
+          <footer class="area-card-footer">
+            <span>Flood Level: <strong>Receding</strong></span>
+            <a href="relief-requests.html" style="font-weight: 600;">View 8 Demands &rarr;</a>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: REGISTER NEW INCIDENT / DISASTER ZONE FORM
+         =================================================================== -->
+    <section class="form-card" aria-labelledby="register-area-heading">
+      <h3 id="register-area-heading">Register New Affected Disaster Zone</h3>
+      <p class="form-subtitle">Authorized emergency personnel can declare a new incident zone to automatically trigger regional inventory reserves and volunteer alerts.</p>
+
+      <form action="#" method="post" autocomplete="on">
+        
+        <fieldset>
+          <legend>1. Geographic &amp; Disaster Details</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="new-area-name">Sector / Locality Name <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="new-area-name" 
+                name="area_name" 
+                placeholder="e.g., Aluva Riverbank Ward 4" 
+                required 
+                minlength="3" 
+                maxlength="60"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="new-district-state">District &amp; State <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="new-district-state" 
+                name="district_state" 
+                placeholder="e.g., Ernakulam, Kerala" 
+                required 
+                minlength="4"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="disaster-type">Disaster Classification <span class="required-indicator">*</span></label>
+              <select id="disaster-type" name="disaster_type" required>
+                <option value="" disabled selected>-- Select Calamity Type --</option>
+                <option value="Flood / River Inundation">Flood / River Inundation</option>
+                <option value="Earthquake / Tremor">Earthquake / Tremor</option>
+                <option value="Cyclone / Storm Surge">Cyclone / Storm Surge</option>
+                <option value="Landslide / Mudflow">Landslide / Mudflow</option>
+                <option value="Cloudburst / Flash Flood">Cloudburst / Flash Flood</option>
+                <option value="Drought / Water Scarcity">Drought / Water Scarcity</option>
+              </select>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Severity, Demographics &amp; Point of Contact</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="severity-level">Emergency Severity Level <span class="required-indicator">*</span></label>
+              <select id="severity-level" name="severity_level" required>
+                <option value="" disabled selected>-- Choose Severity Scale --</option>
+                <option value="Level 4 - Critical Red (Severe Life Threat)">Level 4 - Critical Red (Immediate Evacuation / Severe)</option>
+                <option value="Level 3 - High Orange (Serious Disruption)">Level 3 - High Orange (Extensive Damage / Support Required)</option>
+                <option value="Level 2 - Medium Yellow (Localized Threat)">Level 2 - Medium Yellow (Contained / Moderate Threat)</option>
+                <option value="Level 1 - Low Green (Recovery / Monitor)">Level 1 - Low Green (Monitoring / Early Recovery)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="population-affected">Estimated Affected Population <span class="required-indicator">*</span></label>
+              <input 
+                type="number" 
+                id="population-affected" 
+                name="population_affected" 
+                placeholder="e.g., 15000" 
+                min="1" 
+                max="5000000" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="camps-established">Number of Relief Camps Established <span class="required-indicator">*</span></label>
+              <input 
+                type="number" 
+                id="camps-established" 
+                name="camps_established" 
+                placeholder="e.g., 8" 
+                min="0" 
+                max="500" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="nodal-officer-name">Nodal Incident Officer Name <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="nodal-officer-name" 
+                name="nodal_officer_name" 
+                placeholder="e.g., K. Radhakrishnan, Sub-Collector" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="nodal-officer-contact">Officer Emergency Phone <span class="required-indicator">*</span></label>
+              <input 
+                type="tel" 
+                id="nodal-officer-contact" 
+                name="nodal_officer_contact" 
+                placeholder="e.g., 9447001122" 
+                pattern="^[0-9]{10}$" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="accessibility-status">Ground Accessibility Status <span class="required-indicator">*</span></label>
+              <select id="accessibility-status" name="accessibility_status" required>
+                <option value="All Roads Open">All Roads Open (Heavy Convoys Accessible)</option>
+                <option value="Light Vehicles Only">Light 4x4 Vehicles Only</option>
+                <option value="Boats / Amphibious Only">Boats / Watercraft Only</option>
+                <option value="Total Cutoff - Air Drop Only">Total Cutoff &mdash; Helicopter Air-Drop Only</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-group span-full" style="margin-top: 1.25rem;">
+            <label for="needs-summary">Priority Relief Needs Summary <span class="required-indicator">*</span></label>
+            <textarea 
+              id="needs-summary" 
+              name="needs_summary" 
+              rows="3" 
+              placeholder="Summarize initial requirements (e.g., 5,000 food packets, clean water filtration units, mobile medical trauma team, 1,000 emergency tents)..." 
+              required
+              minlength="15"
+            ></textarea>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Clear Inputs</button>
+          <button type="submit" class="btn btn-primary">&#127758; Declare &amp; Register Incident Zone</button>
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Shared Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Zonal Classifications</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">Level 4: Red Alert Protocols</a></li>
+          <li><a href="#main-content">Level 3: Orange Preparedness</a></li>
+          <li><a href="#main-content">Level 2: Yellow Warning</a></li>
+          <li><a href="#main-content">Level 1: Green Monitoring</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>Earthquake Alert: <span>1092</span></li>
+          <li>Flood Control Cell: <span>1077</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine -->
+  <script src="prototype.js"></script>
+</body>
+</html>

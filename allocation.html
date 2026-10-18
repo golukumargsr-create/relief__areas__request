@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - Allocate Warehouse Supplies to Field Relief Requests and Track Convoys.">
+  <title>ReliefGrid | Resource Allocation &amp; Dispatch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Emergency Ribbon -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>INTER-AGENCY DISPATCH DESK ACTIVE</strong> &mdash; 
+    Priority clearance authorized for military and disaster response transport convoys.
+  </aside>
+
+  <!-- Shared Header & Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas</a></li>
+          <li><a href="allocation.html" class="active" aria-current="page">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper" id="main-content">
+
+    <header class="page-intro">
+      <div>
+        <h2>Resource Allocation &amp; Convoy Dispatch</h2>
+        <p>Match validated field requests with available warehouse stockpiles, assign military or civil logistics providers, and monitor transit status in real time.</p>
+      </div>
+      <div>
+        <span class="page-badge">Active Dispatches: 38 Convoys</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         SECTION 1: RESOURCE ALLOCATION WORKFLOW FORM
+         HTML5 form mapping inventory assets directly to field requests
+         =================================================================== -->
+    <section class="form-card" aria-labelledby="allocation-form-heading">
+      <h3 id="allocation-form-heading">Dispatch &amp; Allocate Relief Stock</h3>
+      <p class="form-subtitle">Assign warehouse inventory units to pending field requisitions. Ensure cold-chain and dangerous goods rules are respected.</p>
+
+      <form action="#" method="post" autocomplete="on">
+        
+        <!-- Fieldset 1: Linking Request to Stock Item -->
+        <fieldset>
+          <legend>1. Request &amp; Warehouse Resource Selection</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="target-request">Select Target Field Request <span class="required-indicator">*</span></label>
+              <select id="target-request" name="target_request" required>
+                <option value="" disabled selected>-- Select Pending Request ID --</option>
+                <optgroup label="Critical Priority (Code Red)">
+                  <option value="REQ-2026-101 | Wayanad (Trauma Kits)">REQ-2026-101 &mdash; Meppadi, Wayanad (Trauma Kits: 600 Needed)</option>
+                  <option value="REQ-2026-102 | Bhachau (Family Tents)">REQ-2026-102 &mdash; Bhachau, Kutch (Family Tents: 450 Needed)</option>
+                </optgroup>
+                <optgroup label="High Priority (Orange)">
+                  <option value="REQ-2026-103 | Kendrapara (Drinking Water)">REQ-2026-103 &mdash; Rajnagar, Kendrapara (Water: 2,500 Cans Needed)</option>
+                  <option value="REQ-2026-104 | Silchar (Rations)">REQ-2026-104 &mdash; Silchar Town, Assam (Rations: 5,000 Packs Needed)</option>
+                </optgroup>
+                <optgroup label="Medium / Routine Priority">
+                  <option value="REQ-2026-105 | Joshimath (Blankets)">REQ-2026-105 &mdash; Joshimath, UK (Thermal Blankets: 1,200 Needed)</option>
+                  <option value="REQ-2026-106 | Chiplun (Chlorine Tabs)">REQ-2026-106 &mdash; Chiplun, MH (Chlorine Tablets: 20,000 Needed)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="source-resource">Source Warehouse SKU &amp; Item <span class="required-indicator">*</span></label>
+              <select id="source-resource" name="source_resource" required>
+                <option value="" disabled selected>-- Select Stock Item from Inventory --</option>
+                <option value="SKU-MED-101 | Halazone Water Tabs (142,000 Available)">SKU-MED-101 &mdash; Halazone Water Tablets (Ernakulam Hub - 142k Avail)</option>
+                <option value="SKU-FOD-204 | High-Energy Biscuits (7,200 Cartons Available)">SKU-FOD-204 &mdash; High-Energy Biscuits (Guwahati Hub - 7.2k Avail)</option>
+                <option value="SKU-MED-305 | IV Saline Packs (1,450 Bags Available)">SKU-MED-305 &mdash; IV Saline Fluid Bags (Ahmedabad Depot - 1,450 Avail)</option>
+                <option value="SKU-SHT-402 | 10-Person Family Tents (850 Available)">SKU-SHT-402 &mdash; 10-Person Family Tents (Dehradun Hub - 850 Avail)</option>
+                <option value="SKU-WTR-501 | Potable Water Cans 20L (4,800 Available)">SKU-WTR-501 &mdash; 20L Water Jerry Cans (Bhubaneswar Hub - 4.8k Avail)</option>
+                <option value="SKU-REL-609 | Thermal Fleece Blankets (19,500 Available)">SKU-REL-609 &mdash; Thermal Fleece Blankets (Chandigarh Hub - 19.5k Avail)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="allocated-quantity">Quantity to Allocate &amp; Release <span class="required-indicator">*</span></label>
+              <input 
+                type="number" 
+                id="allocated-quantity" 
+                name="allocated_quantity" 
+                placeholder="e.g., 600" 
+                min="1" 
+                max="50000" 
+                step="1" 
+                required
+              >
+              <span class="field-help">Cannot exceed current available warehouse stock.</span>
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Fieldset 2: Logistics & Transportation Details -->
+        <fieldset>
+          <legend>2. Transportation Mode &amp; Dispatch Schedule</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="transport-mode">Logistics / Transport Mode <span class="required-indicator">*</span></label>
+              <select id="transport-mode" name="transport_mode" required>
+                <option value="" disabled selected>-- Select Transport Agency --</option>
+                <option value="NDRF Heavy All-Terrain Convoy">NDRF Heavy All-Terrain Truck Convoy</option>
+                <option value="Indian Air Force Mi-17 Air-Drop">Indian Air Force (IAF) Mi-17 Air-Drop Helicopter</option>
+                <option value="Indian Red Cross Rapid Supply Van">Indian Red Cross Rapid Supply Van</option>
+                <option value="State Transport Fleet (Express Corridor)">State Road Transport Fleet (Emergency Green Corridor)</option>
+                <option value="Inland Waterways Boat Flotilla">Inland Waterways Motorized Boat Flotilla</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dispatch-datetime">Scheduled Dispatch Date &amp; Time <span class="required-indicator">*</span></label>
+              <input 
+                type="datetime-local" 
+                id="dispatch-datetime" 
+                name="dispatch_datetime" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="estimated-delivery">Target Delivery By Date <span class="required-indicator">*</span></label>
+              <input 
+                type="date" 
+                id="estimated-delivery" 
+                name="estimated_delivery" 
+                min="2026-10-18" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="dispatch-officer">Authorizing Dispatch Officer <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="dispatch-officer" 
+                name="dispatch_officer" 
+                placeholder="e.g., Major Sandeep Verghese" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="vehicle-reg">Vehicle / Aircraft Call Sign</label>
+              <input 
+                type="text" 
+                id="vehicle-reg" 
+                name="vehicle_reg" 
+                placeholder="e.g., KL-07-EM-1102 / IAF-MI17-CH-4"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="initial-status">Initial Allocation Status <span class="required-indicator">*</span></label>
+              <select id="initial-status" name="initial_status" required>
+                <option value="Pending">Pending (Staged at Loading Bay)</option>
+                <option value="In Transit" selected>In Transit (En Route with Escort)</option>
+                <option value="Delivered">Delivered (Handed to District Nodal Officer)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="form-group span-full" style="margin-top: 1.25rem;">
+            <label for="transit-instructions">Waybill Notes &amp; Route Security Directives</label>
+            <textarea 
+              id="transit-instructions" 
+              name="transit_instructions" 
+              rows="3" 
+              placeholder="e.g., Police escort attached from National Highway Toll Plaza. Proceed via alternate bypass if bridge KM 42 is submerged."
+            ></textarea>
+          </div>
+
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Reset Allocation Details</button>
+          <button type="submit" class="btn btn-primary">&#128666; Authorize &amp; Dispatch Allocation</button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: ALLOCATION HISTORY & DISPATCH LEDGER TABLE
+         Sticky headers, zebra striping, status badges (Pending, In Transit, Delivered)
+         =================================================================== -->
+    <section class="table-container" aria-labelledby="allocation-history-heading">
+      <header class="table-header-bar">
+        <div>
+          <h3 id="allocation-history-heading">Live Dispatch &amp; Allocation Ledger</h3>
+          <p class="field-help">Showing 6 active inter-agency supply allocations tracked via GPS green corridors.</p>
+        </div>
+      </header>
+
+      <div class="table-responsive">
+        <table class="data-table" summary="Record of resource dispatches including allocation ID, target request, items, transport mode, and delivery status">
+          <thead>
+            <tr>
+              <th scope="col">Allocation ID</th>
+              <th scope="col">Linked Request</th>
+              <th scope="col">Resource Item &amp; SKU</th>
+              <th scope="col">Allocated Qty</th>
+              <th scope="col">Destination Zone</th>
+              <th scope="col">Logistics Provider</th>
+              <th scope="col">Dispatch Date</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1: In Transit -->
+            <tr>
+              <td><code>ALC-2026-881</code></td>
+              <td><code>REQ-2026-101</code></td>
+              <td>Medical Trauma Packs (SKU-MED-305)</td>
+              <td class="cell-number">600 Kits</td>
+              <td>Meppadi Camp, Wayanad (KL)</td>
+              <td>IAF Air-Drop (Helicopter Mi-17)</td>
+              <td>18-Oct-2026 21:00</td>
+              <td><span class="badge badge-progress">In Transit</span></td>
+            </tr>
+
+            <!-- Row 2: Pending -->
+            <tr>
+              <td><code>ALC-2026-882</code></td>
+              <td><code>REQ-2026-102</code></td>
+              <td>Family Tents (SKU-SHT-402)</td>
+              <td class="cell-number">450 Tents</td>
+              <td>Bhachau Old Town, Kutch (GJ)</td>
+              <td>NDRF 6th Bn Truck Fleet</td>
+              <td>19-Oct-2026 06:00</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+            </tr>
+
+            <!-- Row 3: In Transit -->
+            <tr>
+              <td><code>ALC-2026-883</code></td>
+              <td><code>REQ-2026-103</code></td>
+              <td>Potable Water Cans 20L (SKU-WTR-501)</td>
+              <td class="cell-number">2,500 Cans</td>
+              <td>Rajnagar Coastal, Kendrapara (OD)</td>
+              <td>State Transport Green Corridor</td>
+              <td>18-Oct-2026 19:30</td>
+              <td><span class="badge badge-progress">In Transit</span></td>
+            </tr>
+
+            <!-- Row 4: Shortage / Pending -->
+            <tr>
+              <td><code>ALC-2026-884</code></td>
+              <td><code>REQ-2026-104</code></td>
+              <td>High-Energy Biscuits (SKU-FOD-204)</td>
+              <td class="cell-number">2,200 Packs <small>(Partial)</small></td>
+              <td>Silchar Town Camp (AS)</td>
+              <td>Inland Motorized Waterways Flotilla</td>
+              <td>19-Oct-2026 08:00</td>
+              <td><span class="badge badge-shortage">Shortage</span></td>
+            </tr>
+
+            <!-- Row 5: Delivered -->
+            <tr>
+              <td><code>ALC-2026-885</code></td>
+              <td><code>REQ-2026-105</code></td>
+              <td>Thermal Fleece Blankets (SKU-REL-609)</td>
+              <td class="cell-number">1,200 Units</td>
+              <td>Ravigram Sector, Joshimath (UK)</td>
+              <td>Indian Red Cross Hill Vans</td>
+              <td>18-Oct-2026 10:15</td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+            </tr>
+
+            <!-- Row 6: Delivered -->
+            <tr>
+              <td><code>ALC-2026-886</code></td>
+              <td><code>REQ-2026-106</code></td>
+              <td>Halazone Chlorine Tabs (SKU-MED-101)</td>
+              <td class="cell-number">20,000 Tabs</td>
+              <td>Chiplun Flood Shelter #2 (MH)</td>
+              <td>Civil Defense Rapid Response Car</td>
+              <td>18-Oct-2026 09:00</td>
+              <td><span class="badge badge-delivered">Delivered</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Shared Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Corridor Protocols</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">Priority Green Corridors</a></li>
+          <li><a href="#main-content">Air Drop Drop-Zone Coordinates</a></li>
+          <li><a href="#main-content">Waybill Audit Trail Rules</a></li>
+          <li><a href="#main-content">Custody Transfer Formats</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>Highway Patrol Cell: <span>1033</span></li>
+          <li>Air Operations Desk: <span>1800-11-2020</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine -->
+  <script src="prototype.js"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - Central Emergency Supplies Warehouse and Logistics Inventory.">
+  <title>ReliefGrid | Resource Inventory Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Emergency Ribbon -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <strong>CENTRAL LOGISTICS &amp; WAREHOUSE INVENTORY</strong> &mdash; 
+    Live stock balances across Regional Logistics Hubs (North, West, South, East).
+  </aside>
+
+  <!-- Shared Header & Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html" class="active" aria-current="page">Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas</a></li>
+          <li><a href="allocation.html">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper" id="main-content">
+
+    <header class="page-intro">
+      <div>
+        <h2>Emergency Stock &amp; Warehouse Inventory</h2>
+        <p>Monitor real-time stockpile volumes of food, potable water, medical gear, tents, and power generation assets stationed at strategic regional warehouses.</p>
+      </div>
+      <div>
+        <span class="page-badge">Stocked SKUs: 148 Distinct Items</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         SECTION 1: RESOURCE INVENTORY DATA TABLE
+         Contains at least 6 detailed realistic emergency supplies rows.
+         Sticky header, zebra rows, stock status indicators.
+         =================================================================== -->
+    <section class="table-container" aria-labelledby="inventory-table-heading">
+      <header class="table-header-bar">
+        <div>
+          <h3 id="inventory-table-heading">Central Stock Register</h3>
+          <p class="field-help">Live inventory levels across 4 National Logistics Depots with automated threshold tracking.</p>
+        </div>
+      </header>
+
+      <div class="table-responsive">
+        <table class="data-table" summary="Stock inventory register showing item codes, quantities, warehouse locations, expiry dates and stock levels">
+          <thead>
+            <tr>
+              <th scope="col">Item SKU</th>
+              <th scope="col">Resource Item Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Stock Available</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Warehouse Depot Location</th>
+              <th scope="col">Expiry Date</th>
+              <th scope="col">Stock Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1: Water Purification -->
+            <tr>
+              <td><code>SKU-MED-101</code></td>
+              <td><strong>Halazone Water Purification Tablets</strong></td>
+              <td>Water &amp; Sanitation</td>
+              <td class="cell-number">142,000</td>
+              <td>Tablets</td>
+              <td>Depot South &mdash; Ernakulam Hub (KL)</td>
+              <td>12-Dec-2028</td>
+              <td><span class="badge badge-low">Optimal (85%)</span></td>
+            </tr>
+
+            <!-- Row 2: Rations -->
+            <tr>
+              <td><code>SKU-FOD-204</code></td>
+              <td><strong>High-Energy Fortified Biscuits (500g)</strong></td>
+              <td>Food &amp; Nutrition</td>
+              <td class="cell-number">7,200</td>
+              <td>Cartons</td>
+              <td>Depot East &mdash; Guwahati Hub (AS)</td>
+              <td>15-Jun-2027</td>
+              <td><span class="badge badge-medium">Moderate (40%)</span></td>
+            </tr>
+
+            <!-- Row 3: Medical Fluids -->
+            <tr>
+              <td><code>SKU-MED-305</code></td>
+              <td><strong>IV Ringer Lactate &amp; Saline Bags (500ml)</strong></td>
+              <td>Medical &amp; Surgical</td>
+              <td class="cell-number">1,450</td>
+              <td>Bottles</td>
+              <td>Depot West &mdash; Ahmedabad Depot (GJ)</td>
+              <td>30-Sep-2027</td>
+              <td><span class="badge badge-medium">Moderate (58%)</span></td>
+            </tr>
+
+            <!-- Row 4: Shelter Tents -->
+            <tr>
+              <td><code>SKU-SHT-402</code></td>
+              <td><strong>All-Weather Family Tents (10-Person)</strong></td>
+              <td>Emergency Shelter</td>
+              <td class="cell-number">850</td>
+              <td>Tents</td>
+              <td>Depot North &mdash; Dehradun Hub (UK)</td>
+              <td>Non-Perishable</td>
+              <td><span class="badge badge-critical">Critical (21%)</span></td>
+            </tr>
+
+            <!-- Row 5: Drinking Water Cans -->
+            <tr>
+              <td><code>SKU-WTR-501</code></td>
+              <td><strong>Sealed Potable Water Jerry Cans (20L)</strong></td>
+              <td>Water &amp; Sanitation</td>
+              <td class="cell-number">4,800</td>
+              <td>Jerry Cans</td>
+              <td>Depot East &mdash; Bhubaneswar Hub (OD)</td>
+              <td>10-Apr-2027</td>
+              <td><span class="badge badge-critical">Critical (24%)</span></td>
+            </tr>
+
+            <!-- Row 6: Thermal Blankets -->
+            <tr>
+              <td><code>SKU-REL-609</code></td>
+              <td><strong>Emergency Thermal Fleece Blankets</strong></td>
+              <td>Emergency Shelter</td>
+              <td class="cell-number">19,500</td>
+              <td>Pieces</td>
+              <td>Depot North &mdash; Chandigarh Hub (PB)</td>
+              <td>Non-Perishable</td>
+              <td><span class="badge badge-low">Surplus (88%)</span></td>
+            </tr>
+
+            <!-- Row 7: Power Generators -->
+            <tr>
+              <td><code>SKU-PWR-711</code></td>
+              <td><strong>Diesel Portable Generators (5 kVA)</strong></td>
+              <td>Rescue Equipment</td>
+              <td class="cell-number">38</td>
+              <td>Units</td>
+              <td>Depot West &mdash; Surat Central (GJ)</td>
+              <td>Non-Perishable</td>
+              <td><span class="badge badge-high">Low (32%)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: "ADD RESOURCE" INVENTORY FORM
+         Allows warehouse operators to register incoming aid donations & supplies.
+         =================================================================== -->
+    <section class="form-card" aria-labelledby="add-resource-heading">
+      <h3 id="add-resource-heading">Register Incoming Supplies to Inventory</h3>
+      <p class="form-subtitle">Log verified incoming consignments, supplier batches, or disaster relief grants into the central database.</p>
+
+      <form action="#" method="post" autocomplete="on">
+        
+        <!-- Fieldset 1: Item Identification -->
+        <fieldset>
+          <legend>1. Item Specification &amp; Classification</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="resource-name">Resource Item Name <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="resource-name" 
+                name="resource_name" 
+                placeholder="e.g., ORS Electrolyte Hydration Sachets" 
+                required 
+                minlength="3" 
+                maxlength="80"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="item-category">Resource Category <span class="required-indicator">*</span></label>
+              <select id="item-category" name="item_category" required>
+                <option value="" disabled selected>-- Choose Category --</option>
+                <optgroup label="Life Sustenance">
+                  <option value="Food & Nutrition">Food &amp; Nutrition</option>
+                  <option value="Water & Sanitation">Water &amp; Sanitation</option>
+                  <option value="Infant Care & Nutrition">Infant Care &amp; Nutrition</option>
+                </optgroup>
+                <optgroup label="Healthcare & Protection">
+                  <option value="Medical & Surgical">Medical &amp; Surgical Drugs</option>
+                  <option value="Trauma Care & First Aid">Trauma Care &amp; First Aid</option>
+                  <option value="Emergency Shelter">Emergency Shelter &amp; Bedding</option>
+                </optgroup>
+                <optgroup label="Search & Operations">
+                  <option value="Rescue Equipment">Rescue Gear &amp; Boats</option>
+                  <option value="Power & Lighting">Power Generators &amp; Solar Lights</option>
+                  <option value="Communication Assets">VHF Radios &amp; Satellite Kits</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="batch-lot-number">Batch / Manufacturer Lot Number <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="batch-lot-number" 
+                name="batch_lot_number" 
+                placeholder="e.g., LOT-2026-IN-492" 
+                required
+                pattern="^[A-Za-z0-9\-_]+$"
+                title="Only alphanumeric characters, dashes, and underscores allowed."
+              >
+            </div>
+
+          </div>
+        </fieldset>
+
+        <!-- Fieldset 2: Volume, Unit & Location -->
+        <fieldset>
+          <legend>2. Stock Quantity, Location &amp; Shelf-Life</legend>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="quantity-available">Quantity Received <span class="required-indicator">*</span></label>
+              <input 
+                type="number" 
+                id="quantity-available" 
+                name="quantity_available" 
+                placeholder="e.g., 2500" 
+                min="1" 
+                max="1000000" 
+                step="1" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="stock-unit">Measurement Unit <span class="required-indicator">*</span></label>
+              <select id="stock-unit" name="stock_unit" required>
+                <option value="" disabled selected>-- Select Unit --</option>
+                <option value="Cartons / Cases">Cartons / Cases</option>
+                <option value="Units / Pieces">Units / Pieces</option>
+                <option value="Liters / Cans">Liters / Cans</option>
+                <option value="Kits / Bags">Kits / Bags</option>
+                <option value="Metric Tonnes">Metric Tonnes</option>
+                <option value="Vials / Ampoules">Vials / Ampoules</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="warehouse-location">Depot / Warehouse Location <span class="required-indicator">*</span></label>
+              <input 
+                type="text" 
+                id="warehouse-location" 
+                name="warehouse_location" 
+                list="depot-locations" 
+                placeholder="Select or enter depot..." 
+                required
+              >
+              <datalist id="depot-locations">
+                <option value="Depot South - Ernakulam Central Hub (KL)">
+                <option value="Depot West - Ahmedabad Logistics Depot (GJ)">
+                <option value="Depot East - Bhubaneswar Humanitarian Base (OD)">
+                <option value="Depot North - Dehradun Emergency Yard (UK)">
+                <option value="Depot North-East - Guwahati Base (AS)">
+                <option value="Depot Central - Nagpur Strategic Reserve (MH)">
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="expiry-date">Product Expiry Date (if applicable)</label>
+              <input 
+                type="date" 
+                id="expiry-date" 
+                name="expiry_date" 
+                min="2026-10-18"
+              >
+              <span class="field-help">Leave empty for non-perishable survival supplies.</span>
+            </div>
+
+          </div>
+
+          <div class="form-group span-full" style="margin-top: 1.25rem;">
+            <label for="storage-condition">Storage Conditions &amp; Handling Protocols</label>
+            <textarea 
+              id="storage-condition" 
+              name="storage_condition" 
+              rows="3" 
+              placeholder="e.g., Maintain cold-chain at 2-8°C, stack max 4 pallets high, keep sheltered from direct sunlight and floodwater."
+              maxlength="500"
+            ></textarea>
+          </div>
+
+        </fieldset>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Reset Form</button>
+          <button type="submit" class="btn btn-primary">&#128230; Register Stock Item</button>
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Shared Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Logistics Standards</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">WHO Emergency Medical Kits</a></li>
+          <li><a href="#main-content">Cold-Chain Assurance SOP</a></li>
+          <li><a href="#main-content">FIFO Stock Distribution</a></li>
+          <li><a href="#main-content">Dangerous Goods Guidelines</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>Logistics Support: <span>1800-425-9999</span></li>
+          <li>Food Safety Help: <span>1915</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine -->
+  <script src="prototype.js"></script>
+</body>
+</html>
