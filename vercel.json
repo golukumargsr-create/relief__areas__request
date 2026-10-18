@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/requests", "destination": "/relief-requests.html" },
+    { "source": "/relief-requests", "destination": "/relief-requests.html" },
+    { "source": "/inventory", "destination": "/inventory.html" },
+    { "source": "/affected-areas", "destination": "/affected-areas.html" },
+    { "source": "/allocation", "destination": "/allocation.html" },
+    { "source": "/volunteers", "destination": "/volunteers.html" },
+    { "source": "/login", "destination": "/login.html" }
+  ]
+}

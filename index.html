@@ -14,10 +14,18 @@
   <!-- =======================================================================
        TOP EMERGENCY BANNER (National Emergency Alert Ribbon)
        ======================================================================= -->
+  <!-- Top Emergency Ribbon -->
   <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
-    <span class="pulse-dot" aria-hidden="true"></span>
-    <strong>NATIONAL EMERGENCY OPERATIONS CENTER (NEOC) ACTIVE</strong> &mdash; 
-    Monsoon Cyclone & Flood Relief Grid v2.4 | Central Toll-Free Helpline: <strong>1070 / 112</strong>
+    <div class="emergency-bar-content">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <strong>NATIONAL EMERGENCY OPERATIONS CENTER (NEOC) ACTIVE</strong> &mdash; 
+      Monsoon Cyclone &amp; Flood Relief Grid v2.4 | Helpline: <strong>1070 / 112</strong>
+    </div>
+    <div class="emergency-bar-auth">
+      <a href="login.html" class="emergency-auth-link" id="top-bar-login-link" title="Sign In to Incident Command">&#128272; Login</a>
+      <span class="emergency-auth-divider">|</span>
+      <a href="login.html?tab=signup" class="emergency-auth-link" id="top-bar-signup-link" title="Register / Sign Up Personnel">&#9997; Sign Up</a>
+    </div>
   </aside>
 
   <!-- =======================================================================
@@ -43,6 +51,25 @@
           <li><a href="affected-areas.html">Affected Areas</a></li>
           <li><a href="allocation.html">Resource Allocation</a></li>
           <li><a href="volunteers.html">Volunteers</a></li>
+          <li><a href="login.html" class="nav-portal-link" title="Authorized Responder Portal">&#128272; Login / Portal</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" id="header-theme-toggle" aria-label="Toggle Dark and Light Mode" title="Toggle Theme (Dark / Light)">
+              <span class="theme-toggle-icon" aria-hidden="true">&#9790;</span>
+              <span class="theme-toggle-text">Dark</span>
+            </button>
+          </li>
+          <li class="nav-auth-item" id="header-auth-container">
+            <div class="nav-auth-buttons">
+              <a href="login.html" class="btn-nav-auth btn-nav-signin" id="btn-nav-signin" title="Sign In to Operational Console">
+                <span class="btn-auth-icon">&#128272;</span>
+                <span>Login</span>
+              </a>
+              <a href="login.html?tab=signup" class="btn-nav-auth btn-nav-signup" id="btn-nav-signup" title="Register / Sign Up Personnel">
+                <span class="btn-auth-icon">&#9997;</span>
+                <span>Sign Up</span>
+              </a>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
@@ -59,8 +86,13 @@
         <h2>National Incident Dashboard</h2>
         <p>Live situational overview of emergency relief requirements, warehouse logistics, volunteer mobilization, and ongoing supply dispatches across active disaster zones.</p>
       </div>
-      <div>
+      <div class="page-intro-right">
         <span class="page-badge">Status: Level-3 National Response Activated</span>
+        <div class="page-auth-prompt" id="page-auth-prompt">
+          <span class="auth-prompt-text">&#128737; Emergency Personnel:</span>
+          <a href="login.html" class="btn-prompt-login" id="prompt-login-btn" title="Sign In to Command Portal">&#128272; Login</a>
+          <a href="login.html?tab=signup" class="btn-prompt-signup" id="prompt-signup-btn" title="Register New Responder">&#9997; Sign Up</a>
+        </div>
       </div>
     </header>
 
@@ -388,6 +420,7 @@
           <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
           <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
           <li><a href="volunteers.html">Volunteer Management</a></li>
+          <li><a href="login.html">Personnel Portal (Login / Register)</a></li>
         </ul>
       </div>
 

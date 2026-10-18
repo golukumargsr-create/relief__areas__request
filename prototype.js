@@ -17,6 +17,73 @@
   'use strict';
 
   // --------------------------------------------------------------------------
+  // Theme Manager (Dark & Light Mode Engine)
+  // --------------------------------------------------------------------------
+  const ThemeManager = {
+    getSavedTheme() {
+      const saved = localStorage.getItem('reliefgrid_theme');
+      if (saved) return saved;
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    },
+    applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('reliefgrid_theme', theme);
+      this.updateButtons(theme);
+    },
+    toggle() {
+      const current = document.documentElement.getAttribute('data-theme') || this.getSavedTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      this.applyTheme(next);
+      showToast(
+        next === 'dark' ? '🌙 Dark Mode Activated' : '☀️ Light Mode Activated',
+        next === 'dark' ? 'Tactical Night Operations command theme enabled.' : 'Daylight High-Visibility mode enabled.',
+        'info'
+      );
+    },
+    updateButtons(theme) {
+      const isDark = theme === 'dark';
+      const btns = document.querySelectorAll('.theme-toggle-btn, #btn-demo-theme');
+      btns.forEach(btn => {
+        const iconSpan = btn.querySelector('.theme-toggle-icon');
+        const textSpan = btn.querySelector('.theme-toggle-text');
+        if (iconSpan) iconSpan.innerHTML = isDark ? '&#9728;' : '&#9790;';
+        if (textSpan) textSpan.textContent = isDark ? 'Light' : 'Dark';
+        btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      });
+    },
+    init() {
+      const theme = this.getSavedTheme();
+      this.applyTheme(theme);
+      this.injectNavButton();
+    },
+    injectNavButton() {
+      const navUl = document.querySelector('.main-nav ul');
+      if (navUl && !document.getElementById('header-theme-toggle')) {
+        const li = document.createElement('li');
+        const isDark = (document.documentElement.getAttribute('data-theme') || this.getSavedTheme()) === 'dark';
+        li.innerHTML = `
+          <button type="button" class="theme-toggle-btn" id="header-theme-toggle" aria-label="Toggle Dark and Light Mode" title="${isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}">
+            <span class="theme-toggle-icon" aria-hidden="true">${isDark ? '&#9728;' : '&#9790;'}</span>
+            <span class="theme-toggle-text">${isDark ? 'Light' : 'Dark'}</span>
+          </button>
+        `;
+        navUl.appendChild(li);
+        li.querySelector('button').addEventListener('click', () => this.toggle());
+      }
+    }
+  };
+
+  // Immediate theme execution to prevent any flash of unstyled theme
+  (function initThemeEarly() {
+    const saved = localStorage.getItem('reliefgrid_theme') || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+
+  // --------------------------------------------------------------------------
   // 1. Initial Seed Data
   // --------------------------------------------------------------------------
   const DEFAULT_DATA = {
@@ -67,6 +134,60 @@
       { type: 'volunteer', text: 'Volunteer Team Mobilized: Rapid Medical Team (14 paramedics) assigned to Bhuj Community Hospital.', time: '2 hours ago • Kutch, Gujarat' },
       { type: 'delivered', text: 'Consignment Delivered: 500 Tarpaulin family shelters successfully handed over at Kendrapara Shelter #4.', time: '4 hours ago • Kendrapara, Odisha' },
       { type: 'alert', text: 'Warehouse Alert: High-energy ration kits fell below 25% safety reserve threshold at Guwahati Depot.', time: '6 hours ago • Inventory Operations' }
+    ],
+    users: [
+      {
+        id: 'USR-CMD-01',
+        name: 'Dr. Anita Nair',
+        email: 'anita.nair@ndma.gov.in',
+        phone: '+91 94471 02030',
+        role: 'Incident Commander',
+        agency: 'National Disaster Response Force (NDRF)',
+        badge: 'NDRF-IC-7749',
+        clearance: 'Level 4 - National Ops',
+        password: 'password123',
+        avatar: '👩‍⚕️',
+        status: 'Active Duty'
+      },
+      {
+        id: 'USR-LOG-02',
+        name: 'Capt. V. K. Jadeja',
+        email: 'vk.jadeja@logistics.ndrf.gov.in',
+        phone: '+91 98250 19283',
+        role: 'Warehouse Logistics Head',
+        agency: 'Central Emergency Depots & Logistics',
+        badge: 'LOG-CMD-8821',
+        clearance: 'Level 3 - Supply Chain',
+        password: 'password123',
+        avatar: '👨‍✈️',
+        status: 'Active Duty'
+      },
+      {
+        id: 'USR-MED-03',
+        name: 'Dr. Ashwin Menon',
+        email: 'ashwin.menon@who-relief.org',
+        phone: '+91 98471 20391',
+        role: 'Field Medical Officer',
+        agency: 'Indian Red Cross & WHO Field Health',
+        badge: 'MED-FLD-4410',
+        clearance: 'Level 2 - Field Triage',
+        password: 'password123',
+        avatar: '👨‍⚕️',
+        status: 'Active Duty'
+      },
+      {
+        id: 'USR-VOL-04',
+        name: 'Pooja Kadam',
+        email: 'pooja.kadam@reliefvolunteers.org',
+        phone: '+91 98192 30491',
+        role: 'Registered Volunteer Responder',
+        agency: 'Civil Defense & Citizen Corps',
+        badge: 'VOL-RES-9104',
+        clearance: 'Level 1 - Community Ground',
+        password: 'password123',
+        avatar: '🦸‍♀️',
+        status: 'Active Duty'
+      }
     ]
   };
 
@@ -81,9 +202,16 @@
     set(key, val) {
       localStorage.setItem('reliefgrid_' + key, JSON.stringify(val));
     },
+    remove(key) {
+      localStorage.removeItem('reliefgrid_' + key);
+    },
     init() {
       if (!this.get('seeded')) {
         this.reset();
+      } else {
+        if (!this.get('users')) {
+          this.set('users', DEFAULT_DATA.users);
+        }
       }
     },
     reset() {
@@ -146,17 +274,997 @@
   }
 
   // --------------------------------------------------------------------------
+  // 3.5. Authentication & Operational Identity Manager (AuthManager)
+  // --------------------------------------------------------------------------
+  const AuthManager = {
+    getCurrentUser() {
+      return Store.get('currentUser');
+    },
+
+    getUsers() {
+      return Store.get('users') || DEFAULT_DATA.users;
+    },
+
+    setCurrentUser(user) {
+      if (user) {
+        Store.set('currentUser', user);
+      } else {
+        Store.remove('currentUser');
+      }
+      this.renderHeaderAuth();
+      this.updateDemoBar();
+      this.updatePageIfLoggedIn();
+    },
+
+    login(identifier, password, remember = true) {
+      if (!identifier || !password) {
+        return { success: false, message: 'Please provide both your official Email/Disaster ID and Password.' };
+      }
+
+      const users = this.getUsers();
+      const cleanId = identifier.trim().toLowerCase();
+      
+      const user = users.find(u => 
+        (u.email && u.email.toLowerCase() === cleanId) || 
+        (u.badge && u.badge.toLowerCase() === cleanId) ||
+        (u.name && u.name.toLowerCase() === cleanId)
+      );
+
+      if (!user) {
+        return { success: false, message: `No credential record found matching "${identifier}". Check email or try a 1-click demo role.` };
+      }
+
+      // In prototype engine, allow 'password123' as default or stored password
+      if (password !== user.password && password !== 'password123') {
+        return { success: false, message: 'Incorrect credentials. For viva testing, demo password is "password123".' };
+      }
+
+      this.setCurrentUser(user);
+
+      // Log activity
+      const acts = Store.get('activities') || [];
+      acts.unshift({
+        type: 'auth',
+        text: `Personnel Session Authorized: ${user.name} (${user.role}) logged in at command console.`,
+        time: 'Just now • Gatekeeper Sentinel'
+      });
+      Store.set('activities', acts);
+
+      showToast(
+        'Access Authorized',
+        `Welcome back, <strong>${user.name}</strong> (${user.role}). Clearance: ${user.clearance}.`,
+        'success'
+      );
+
+      this.closeModal();
+
+      const path = window.location.pathname;
+      if (path.includes('login.html')) {
+        this.renderLoginPageState();
+      }
+
+      return { success: true, user };
+    },
+
+    loginAsDemo(userId) {
+      const users = this.getUsers();
+      const user = users.find(u => u.id === userId);
+      if (user) {
+        this.setCurrentUser(user);
+
+        const acts = Store.get('activities') || [];
+        acts.unshift({
+          type: 'auth',
+          text: `Demo Persona Activated: ${user.name} assigned as active ${user.role}.`,
+          time: 'Just now • Demo Sandbox'
+        });
+        Store.set('activities', acts);
+
+        showToast(
+          'Persona Activated',
+          `Logged in as <strong>${user.name}</strong> &mdash; <em>${user.role}</em>.`,
+          'success'
+        );
+
+        this.closeModal();
+
+        const path = window.location.pathname;
+        if (path.includes('login.html')) {
+          this.renderLoginPageState();
+        }
+      }
+    },
+
+    register(data) {
+      const { name, email, phone, role, agency, badge, password, confirmPassword, terms } = data;
+
+      if (!name || name.trim().length < 2) {
+        return { success: false, message: 'Please enter your full official name.' };
+      }
+      if (!email || !email.includes('@')) {
+        return { success: false, message: 'Please provide a valid official email address.' };
+      }
+      if (!password || password.length < 6) {
+        return { success: false, message: 'Password must be at least 6 characters long.' };
+      }
+      if (password !== confirmPassword) {
+        return { success: false, message: 'Passwords do not match. Please re-enter.' };
+      }
+      if (!terms) {
+        return { success: false, message: 'You must agree to the Humanitarian Charter & Code of Conduct.' };
+      }
+
+      const users = this.getUsers();
+      const cleanEmail = email.trim().toLowerCase();
+      if (users.some(u => u.email && u.email.toLowerCase() === cleanEmail)) {
+        return { success: false, message: 'An account with this email is already provisioned. Please sign in.' };
+      }
+
+      let clearance = 'Level 1 - Community Ground';
+      let avatar = '🦸‍♀️';
+      if (role && role.includes('Commander')) {
+        clearance = 'Level 4 - National Ops';
+        avatar = '👩‍⚕️';
+      } else if (role && role.includes('Logistics')) {
+        clearance = 'Level 3 - Supply Chain';
+        avatar = '👨‍✈️';
+      } else if (role && role.includes('Medical')) {
+        clearance = 'Level 2 - Field Triage';
+        avatar = '👨‍⚕️';
+      }
+
+      const newUser = {
+        id: 'USR-REG-' + Date.now().toString(36).toUpperCase(),
+        name: name.trim(),
+        email: cleanEmail,
+        phone: phone ? phone.trim() : '+91 98000 00000',
+        role: role || 'Registered Volunteer Responder',
+        agency: agency || 'Civil Defense Corps',
+        badge: badge && badge.trim() ? badge.trim() : 'NDMA-ID-' + Math.floor(1000 + Math.random() * 9000),
+        clearance: clearance,
+        password: password,
+        avatar: avatar,
+        status: 'Active Duty',
+        created: new Date().toISOString()
+      };
+
+      users.unshift(newUser);
+      Store.set('users', users);
+      this.setCurrentUser(newUser);
+
+      const acts = Store.get('activities') || [];
+      acts.unshift({
+        type: 'auth',
+        text: `New Responder Registered: ${newUser.name} enrolled as ${newUser.role} (${newUser.agency}).`,
+        time: 'Just now • Civil Credentialing'
+      });
+      Store.set('activities', acts);
+
+      showToast(
+        'Registration Complete',
+        `Welcome to ReliefGrid, <strong>${newUser.name}</strong>. Badge ID: <code>${newUser.badge}</code> assigned.`,
+        'success'
+      );
+
+      this.closeModal();
+
+      const path = window.location.pathname;
+      if (path.includes('login.html')) {
+        this.renderLoginPageState();
+      }
+
+      return { success: true, user: newUser };
+    },
+
+    logout() {
+      const prev = this.getCurrentUser();
+      this.setCurrentUser(null);
+      showToast(
+        'Session Terminated',
+        prev ? `Signed out <strong>${prev.name}</strong>. Operations switched to public guest mode.` : 'Signed out successfully.',
+        'info'
+      );
+      const path = window.location.pathname;
+      if (path.includes('login.html')) {
+        this.renderLoginPageState();
+      }
+    },
+
+    renderHeaderAuth() {
+      const user = this.getCurrentUser();
+      
+      let container = document.getElementById('header-auth-container');
+      if (!container) {
+        const navUl = document.querySelector('.main-nav ul');
+        if (navUl) {
+          container = document.createElement('li');
+          container.className = 'nav-auth-item';
+          container.id = 'header-auth-container';
+          navUl.appendChild(container);
+        }
+      }
+
+      if (!container) return;
+
+      if (user) {
+        const shortRole = user.role.split(' ')[0];
+        container.innerHTML = `
+          <div class="user-profile-menu-wrapper" id="user-profile-wrapper">
+            <button type="button" class="user-profile-btn" id="btn-user-profile" aria-expanded="false" aria-haspopup="true" title="Signed in as ${user.name} (${user.role})">
+              <span class="user-avatar-badge">${user.avatar || '👤'}</span>
+              <span class="user-name-text">${user.name}</span>
+              <span class="user-role-tag">${shortRole}</span>
+              <span class="user-chevron" aria-hidden="true">&#9662;</span>
+            </button>
+            <div class="user-profile-dropdown" id="user-profile-dropdown" role="menu" aria-label="Operational Identity Menu" style="display: none;">
+              <div class="dropdown-header">
+                <div class="dropdown-avatar">${user.avatar || '👤'}</div>
+                <div class="dropdown-user-info">
+                  <strong>${user.name}</strong>
+                  <span class="dropdown-email">${user.email}</span>
+                  <span class="dropdown-agency-badge">${user.agency}</span>
+                </div>
+              </div>
+              <div class="dropdown-meta-box">
+                <div class="meta-row">
+                  <span class="meta-label">Disaster Badge:</span>
+                  <span class="meta-val">${user.badge}</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Clearance:</span>
+                  <span class="clearance-pill">${user.clearance}</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Duty Status:</span>
+                  <span class="duty-status-pill"><span class="dot"></span> ${user.status}</span>
+                </div>
+              </div>
+              <div class="dropdown-section-title">Switch Active Demo Role</div>
+              <div class="dropdown-persona-grid">
+                <button type="button" class="btn-persona-quick ${user.id === 'USR-CMD-01' ? 'active' : ''}" data-switch-id="USR-CMD-01">
+                  <span>👩‍⚕️</span> <span>Commander</span>
+                </button>
+                <button type="button" class="btn-persona-quick ${user.id === 'USR-LOG-02' ? 'active' : ''}" data-switch-id="USR-LOG-02">
+                  <span>👨‍✈️</span> <span>Logistics</span>
+                </button>
+                <button type="button" class="btn-persona-quick ${user.id === 'USR-MED-03' ? 'active' : ''}" data-switch-id="USR-MED-03">
+                  <span>👨‍⚕️</span> <span>Medical</span>
+                </button>
+                <button type="button" class="btn-persona-quick ${user.id === 'USR-VOL-04' ? 'active' : ''}" data-switch-id="USR-VOL-04">
+                  <span>🦸‍♀️</span> <span>Volunteer</span>
+                </button>
+              </div>
+              <div class="dropdown-footer">
+                <a href="login.html" class="dropdown-link-portal">&#128737; Auth Center</a>
+                <button type="button" class="btn-dropdown-logout" id="btn-dropdown-logout">&#128682; Sign Out</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        const btnProfile = container.querySelector('#btn-user-profile');
+        const dropdown = container.querySelector('#user-profile-dropdown');
+        if (btnProfile && dropdown) {
+          btnProfile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = dropdown.style.display !== 'none';
+            dropdown.style.display = isOpen ? 'none' : 'flex';
+            btnProfile.setAttribute('aria-expanded', !isOpen);
+          });
+        }
+
+        document.addEventListener('click', (e) => {
+          if (dropdown && !container.contains(e.target)) {
+            dropdown.style.display = 'none';
+            if (btnProfile) btnProfile.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        container.querySelectorAll('.btn-persona-quick').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-switch-id');
+            AuthManager.loginAsDemo(id);
+          });
+        });
+
+        const btnLogout = container.querySelector('#btn-dropdown-logout');
+        if (btnLogout) {
+          btnLogout.addEventListener('click', () => AuthManager.logout());
+        }
+
+      } else {
+        container.innerHTML = `
+          <div class="nav-auth-buttons">
+            <a href="login.html" class="btn-nav-auth btn-nav-signin" id="btn-nav-signin" title="Sign In to Operational Console">
+              <span class="btn-auth-icon">&#128272;</span>
+              <span>Login</span>
+            </a>
+            <a href="login.html?tab=signup" class="btn-nav-auth btn-nav-signup" id="btn-nav-signup" title="Register / Sign Up Personnel">
+              <span class="btn-auth-icon">&#9997;</span>
+              <span>Sign Up</span>
+            </a>
+          </div>
+        `;
+
+        const btnIn = container.querySelector('#btn-nav-signin');
+        const btnUp = container.querySelector('#btn-nav-signup');
+        if (btnIn) btnIn.addEventListener('click', (e) => {
+          if (!window.location.pathname.includes('login.html')) {
+            e.preventDefault();
+            AuthManager.openModal('signin');
+          }
+        });
+        if (btnUp) btnUp.addEventListener('click', (e) => {
+          if (!window.location.pathname.includes('login.html')) {
+            e.preventDefault();
+            AuthManager.openModal('signup');
+          }
+        });
+      }
+
+      // Bind all other on-page login and signup triggers
+      document.querySelectorAll('#nav-login-link, #top-bar-login-link, #prompt-login-btn').forEach(el => {
+        el.addEventListener('click', (e) => {
+          if (!window.location.pathname.includes('login.html')) {
+            e.preventDefault();
+            AuthManager.openModal('signin');
+          }
+        });
+      });
+
+      document.querySelectorAll('#nav-signup-link, #top-bar-signup-link, #prompt-signup-btn').forEach(el => {
+        el.addEventListener('click', (e) => {
+          if (!window.location.pathname.includes('login.html')) {
+            e.preventDefault();
+            AuthManager.openModal('signup');
+          }
+        });
+      });
+    },
+
+    updateDemoBar() {
+      const user = this.getCurrentUser();
+      const avatarSpan = document.getElementById('demo-auth-avatar');
+      const labelSpan = document.getElementById('demo-auth-label');
+      if (avatarSpan && labelSpan) {
+        if (user) {
+          avatarSpan.innerHTML = user.avatar || '👤';
+          labelSpan.innerHTML = `Personnel: <strong>${user.name}</strong> (${user.role.split(' ')[0]})`;
+        } else {
+          avatarSpan.innerHTML = '&#128100;';
+          labelSpan.innerHTML = 'Personnel: <strong>Guest (Login)</strong>';
+        }
+      }
+    },
+
+    updatePageIfLoggedIn() {
+      const user = this.getCurrentUser();
+      const authPrompt = document.getElementById('page-auth-prompt');
+
+      if (!user) {
+        if (authPrompt) {
+          authPrompt.innerHTML = `
+            <span class="auth-prompt-text">&#128737; Emergency Personnel:</span>
+            <a href="login.html" class="btn-prompt-login" id="prompt-login-btn" title="Sign In to Command Portal">&#128272; Login</a>
+            <a href="login.html?tab=signup" class="btn-prompt-signup" id="prompt-signup-btn" title="Register New Responder">&#9997; Sign Up</a>
+          `;
+          const inBtn = authPrompt.querySelector('#prompt-login-btn');
+          const upBtn = authPrompt.querySelector('#prompt-signup-btn');
+          if (inBtn) inBtn.addEventListener('click', (e) => {
+            if (!window.location.pathname.includes('login.html')) {
+              e.preventDefault();
+              AuthManager.openModal('signin');
+            }
+          });
+          if (upBtn) upBtn.addEventListener('click', (e) => {
+            if (!window.location.pathname.includes('login.html')) {
+              e.preventDefault();
+              AuthManager.openModal('signup');
+            }
+          });
+        }
+        return;
+      }
+
+      if (authPrompt) {
+        const shortRole = user.role.split(' ')[0];
+        authPrompt.innerHTML = `
+          <span class="auth-prompt-text">&#128737; Active: <strong>${user.name}</strong> (${shortRole})</span>
+          <a href="login.html" class="btn-prompt-login" style="padding:0.25rem 0.65rem;">Portal</a>
+          <button type="button" class="btn-prompt-signup" id="btn-prompt-logout" style="cursor:pointer;border:1px solid #ef4444;color:#ef4444!important;background:transparent;">&#128682; Logout</button>
+        `;
+        const btnLogout = authPrompt.querySelector('#btn-prompt-logout');
+        if (btnLogout) btnLogout.addEventListener('click', () => AuthManager.logout());
+      }
+
+      const path = window.location.pathname;
+      if (path.includes('relief-requests.html')) {
+        const nameField = document.getElementById('requester-name');
+        const agencyField = document.getElementById('requester-agency');
+        if (nameField && !nameField.value) nameField.value = user.name;
+        if (agencyField && !agencyField.value) agencyField.value = user.agency;
+      } else if (path.includes('allocation.html')) {
+        const offField = document.getElementById('dispatch-officer');
+        if (offField && !offField.value) offField.value = user.name;
+      }
+    },
+
+    injectAuthModal() {
+      if (document.getElementById('auth-modal')) return;
+
+      const modal = document.createElement('div');
+      modal.className = 'auth-modal-backdrop';
+      modal.id = 'auth-modal';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+      modal.setAttribute('aria-labelledby', 'auth-modal-title');
+      modal.style.display = 'none';
+
+      modal.innerHTML = `
+        <div class="auth-modal-card">
+          <button type="button" class="auth-modal-close" id="auth-modal-close-btn" aria-label="Close Authentication Portal">&times;</button>
+          
+          <div class="auth-modal-header">
+            <div class="auth-modal-icon">&#9951;</div>
+            <div>
+              <h3 id="auth-modal-title">National Emergency Personnel Portal</h3>
+              <p class="auth-modal-subtitle">Secure Multi-Agency Disaster Coordination System</p>
+            </div>
+          </div>
+
+          <div class="auth-tab-switch" role="tablist">
+            <button type="button" class="auth-tab-btn active" id="modal-tab-signin" role="tab" aria-selected="true" aria-controls="modal-panel-signin">
+              <span>&#128272;</span> Sign In
+            </button>
+            <button type="button" class="auth-tab-btn" id="modal-tab-signup" role="tab" aria-selected="false" aria-controls="modal-panel-signup">
+              <span>&#9997;</span> Sign Up / Register
+            </button>
+          </div>
+
+          <div class="auth-panel-body">
+            
+            <div id="modal-auth-alert" style="display: none;"></div>
+
+            <!-- TAB 1: SIGN IN -->
+            <div id="modal-panel-signin" role="tabpanel" aria-labelledby="modal-tab-signin">
+              
+              <div class="auth-demo-section">
+                <div class="auth-demo-label">
+                  <span>1-Click Viva Demo Roles</span>
+                  <span class="auth-demo-tag">Quick Login</span>
+                </div>
+                <div class="auth-demo-grid">
+                  <button type="button" class="demo-account-card" data-modal-demo="USR-CMD-01">
+                    <span class="demo-account-avatar">&#128105;&#8205;&#9877;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Dr. Anita Nair</div>
+                      <div class="demo-account-role">Incident Commander</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-modal-demo="USR-LOG-02">
+                    <span class="demo-account-avatar">&#128104;&#8205;&#9992;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Capt. V.K. Jadeja</div>
+                      <div class="demo-account-role">Logistics Head</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-modal-demo="USR-MED-03">
+                    <span class="demo-account-avatar">&#128104;&#8205;&#9877;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Dr. Ashwin Menon</div>
+                      <div class="demo-account-role">Medical Officer</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-modal-demo="USR-VOL-04">
+                    <span class="demo-account-avatar">&#129464;&#8205;&#9792;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Pooja Kadam</div>
+                      <div class="demo-account-role">Volunteer Responder</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="auth-divider">Or Enter Official Credentials</div>
+
+              <form id="modal-form-signin" class="auth-form" novalidate>
+                <div class="auth-field">
+                  <label for="modal-signin-id">Official Email or Disaster Badge ID <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon">&#9993;</span>
+                    <input type="text" id="modal-signin-id" placeholder="anita.nair@ndma.gov.in" required autocomplete="username">
+                  </div>
+                </div>
+
+                <div class="auth-field">
+                  <label for="modal-signin-pass">Passcode / Password <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon">&#128274;</span>
+                    <input type="password" id="modal-signin-pass" placeholder="Enter credentials (demo: password123)" required autocomplete="current-password">
+                    <button type="button" class="btn-toggle-password" data-target="modal-signin-pass" aria-label="Toggle password visibility">&#128065;</button>
+                  </div>
+                </div>
+
+                <div class="auth-form-row">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="modal-signin-remember" checked>
+                    <span>Keep console session active</span>
+                  </label>
+                  <a href="login.html" class="auth-link">Need Help?</a>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="btn-modal-submit-signin">
+                  <span>&#128272;</span> Authorize &amp; Sign In
+                </button>
+
+                <p class="auth-switch-note">
+                  New emergency responder or volunteer? 
+                  <a href="#" class="auth-link" id="modal-switch-to-signup">Sign Up / Register here &rarr;</a>
+                </p>
+              </form>
+
+            </div>
+
+            <!-- TAB 2: SIGN UP ("Signing option") -->
+            <div id="modal-panel-signup" role="tabpanel" aria-labelledby="modal-tab-signup" style="display: none;">
+              
+              <form id="modal-form-signup" class="auth-form" novalidate>
+                
+                <div class="auth-field">
+                  <label>Operational Duty Role <span class="required-indicator">*</span></label>
+                  <div class="role-pills-selector">
+                    <label class="role-pill-option">
+                      <input type="radio" name="modal_reg_role" value="Incident Commander" checked>
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128737;</span>
+                        <span class="role-pill-text">Commander</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="modal_reg_role" value="Warehouse Logistics Head">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128230;</span>
+                        <span class="role-pill-text">Logistics</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="modal_reg_role" value="Field Medical Officer">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128104;&#8205;&#9877;&#65039;</span>
+                        <span class="role-pill-text">Medical</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="modal_reg_role" value="Registered Volunteer Responder">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#129309;</span>
+                        <span class="role-pill-text">Volunteer</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="auth-field">
+                  <label for="modal-reg-name">Full Official Name <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon">&#128100;</span>
+                    <input type="text" id="modal-reg-name" placeholder="e.g. Major Vikram Sen" required autocomplete="name">
+                  </div>
+                </div>
+
+                <div class="auth-field">
+                  <label for="modal-reg-agency">Organization / Agency <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon">&#127970;</span>
+                    <select id="modal-reg-agency" required>
+                      <option value="National Disaster Response Force (NDRF)" selected>National Disaster Response Force (NDRF)</option>
+                      <option value="State Disaster Management Authority (SDMA)">State Disaster Management Authority (SDMA)</option>
+                      <option value="Indian Red Cross Society (IRCS)">Indian Red Cross Society (IRCS)</option>
+                      <option value="Civil Defense &amp; Citizen Corps">Civil Defense &amp; Citizen Corps</option>
+                      <option value="Independent Humanitarian Volunteer">Independent Humanitarian Volunteer</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div class="auth-field">
+                    <label for="modal-reg-email">Official Email <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon">&#9993;</span>
+                      <input type="email" id="modal-reg-email" placeholder="name@agency.gov.in" required autocomplete="email">
+                    </div>
+                  </div>
+
+                  <div class="auth-field">
+                    <label for="modal-reg-phone">Emergency Phone <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon">&#128222;</span>
+                      <input type="tel" id="modal-reg-phone" placeholder="Mobile Number" required autocomplete="tel">
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div class="auth-field">
+                    <label for="modal-reg-pass">Create Password <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon">&#128274;</span>
+                      <input type="password" id="modal-reg-pass" placeholder="Min 6 chars" required autocomplete="new-password">
+                      <button type="button" class="btn-toggle-password" data-target="modal-reg-pass" aria-label="Toggle password visibility">&#128065;</button>
+                    </div>
+                  </div>
+
+                  <div class="auth-field">
+                    <label for="modal-reg-confirm">Confirm Password <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon">&#128274;</span>
+                      <input type="password" id="modal-reg-confirm" placeholder="Re-type password" required autocomplete="new-password">
+                      <button type="button" class="btn-toggle-password" data-target="modal-reg-confirm" aria-label="Toggle password visibility">&#128065;</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="auth-field" style="margin-top: 0.25rem;">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="modal-reg-terms" required>
+                    <span style="font-size: 0.75rem;">I pledge adherence to the Sphere Humanitarian Charter and NDRF code of conduct.</span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="btn-modal-submit-signup">
+                  <span>&#9997;</span> Create Account &amp; Sign In
+                </button>
+
+                <p class="auth-switch-note">
+                  Already credentialed? 
+                  <a href="#" class="auth-link" id="modal-switch-to-signin">Sign In to Operations &rarr;</a>
+                </p>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      modal.querySelector('#auth-modal-close-btn').addEventListener('click', () => this.closeModal());
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) this.closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') {
+          this.closeModal();
+        }
+      });
+
+      modal.querySelector('#modal-tab-signin').addEventListener('click', () => this.switchModalTab('signin'));
+      modal.querySelector('#modal-tab-signup').addEventListener('click', () => this.switchModalTab('signup'));
+      modal.querySelector('#modal-switch-to-signup').addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchModalTab('signup');
+      });
+      modal.querySelector('#modal-switch-to-signin').addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchModalTab('signin');
+      });
+
+      modal.querySelectorAll('.btn-toggle-password').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const input = modal.querySelector('#' + targetId);
+          if (input) {
+            const isPass = input.type === 'password';
+            input.type = isPass ? 'text' : 'password';
+            btn.innerHTML = isPass ? '&#128584;' : '&#128065;';
+          }
+        });
+      });
+
+      modal.querySelectorAll('[data-modal-demo]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-modal-demo');
+          this.loginAsDemo(id);
+        });
+      });
+
+      modal.querySelector('#modal-form-signin').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = modal.querySelector('#modal-signin-id').value;
+        const pass = modal.querySelector('#modal-signin-pass').value;
+        const remember = modal.querySelector('#modal-signin-remember').checked;
+        const res = this.login(id, pass, remember);
+        if (!res.success) {
+          this.showModalAlert(res.message, 'error');
+        }
+      });
+
+      modal.querySelector('#modal-form-signup').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const role = modal.querySelector('input[name="modal_reg_role"]:checked')?.value;
+        const name = modal.querySelector('#modal-reg-name').value;
+        const agency = modal.querySelector('#modal-reg-agency').value;
+        const email = modal.querySelector('#modal-reg-email').value;
+        const phone = modal.querySelector('#modal-reg-phone').value;
+        const password = modal.querySelector('#modal-reg-pass').value;
+        const confirmPassword = modal.querySelector('#modal-reg-confirm').value;
+        const terms = modal.querySelector('#modal-reg-terms').checked;
+
+        const res = this.register({
+          role, name, agency, email, phone, password, confirmPassword, terms
+        });
+
+        if (!res.success) {
+          this.showModalAlert(res.message, 'error');
+        }
+      });
+    },
+
+    openModal(defaultTab = 'signin') {
+      this.injectAuthModal();
+      const modal = document.getElementById('auth-modal');
+      if (modal) {
+        this.switchModalTab(defaultTab);
+        this.clearModalAlert();
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          if (defaultTab === 'signin') {
+            const el = modal.querySelector('#modal-signin-id');
+            if (el) el.focus();
+          } else {
+            const el = modal.querySelector('#modal-reg-name');
+            if (el) el.focus();
+          }
+        }, 100);
+      }
+    },
+
+    closeModal() {
+      const modal = document.getElementById('auth-modal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    },
+
+    switchModalTab(tabName) {
+      const modal = document.getElementById('auth-modal');
+      if (!modal) return;
+      const tabIn = modal.querySelector('#modal-tab-signin');
+      const tabUp = modal.querySelector('#modal-tab-signup');
+      const panelIn = modal.querySelector('#modal-panel-signin');
+      const panelUp = modal.querySelector('#modal-panel-signup');
+
+      this.clearModalAlert();
+
+      if (tabName === 'signin') {
+        tabIn.classList.add('active');
+        tabIn.setAttribute('aria-selected', 'true');
+        tabUp.classList.remove('active');
+        tabUp.setAttribute('aria-selected', 'false');
+        panelIn.style.display = 'block';
+        panelUp.style.display = 'none';
+      } else {
+        tabUp.classList.add('active');
+        tabUp.setAttribute('aria-selected', 'true');
+        tabIn.classList.remove('active');
+        tabIn.setAttribute('aria-selected', 'false');
+        panelUp.style.display = 'block';
+        panelIn.style.display = 'none';
+      }
+    },
+
+    showModalAlert(msg, type = 'error') {
+      const alertBox = document.getElementById('modal-auth-alert');
+      if (alertBox) {
+        alertBox.className = `auth-alert auth-alert-${type}`;
+        alertBox.innerHTML = `<span>${type === 'error' ? '&#9888;' : '&#10004;'}</span> <span>${msg}</span>`;
+        alertBox.style.display = 'flex';
+      }
+    },
+
+    clearModalAlert() {
+      const alertBox = document.getElementById('modal-auth-alert');
+      if (alertBox) {
+        alertBox.style.display = 'none';
+        alertBox.innerHTML = '';
+      }
+    },
+
+    initLoginPage() {
+      const path = window.location.pathname;
+      if (!path.includes('login.html')) return;
+
+      this.renderLoginPageState();
+
+      const tabIn = document.getElementById('page-tab-signin');
+      const tabUp = document.getElementById('page-tab-signup');
+      const panelIn = document.getElementById('page-panel-signin');
+      const panelUp = document.getElementById('page-panel-signup');
+
+      const switchPageTab = (tab) => {
+        this.clearPageAlert();
+        if (tab === 'signin') {
+          tabIn.classList.add('active');
+          tabIn.setAttribute('aria-selected', 'true');
+          tabUp.classList.remove('active');
+          tabUp.setAttribute('aria-selected', 'false');
+          panelIn.style.display = 'block';
+          panelUp.style.display = 'none';
+        } else {
+          tabUp.classList.add('active');
+          tabUp.setAttribute('aria-selected', 'true');
+          tabIn.classList.remove('active');
+          tabIn.setAttribute('aria-selected', 'false');
+          panelUp.style.display = 'block';
+          panelIn.style.display = 'none';
+        }
+      };
+
+      if (tabIn && tabUp) {
+        tabIn.addEventListener('click', () => switchPageTab('signin'));
+        tabUp.addEventListener('click', () => switchPageTab('signup'));
+      }
+
+      // Check URL parameters for ?tab=signup
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('tab') === 'signup') {
+        switchPageTab('signup');
+      }
+
+      const switchInLink = document.getElementById('page-switch-to-signin');
+      const switchUpLink = document.getElementById('page-switch-to-signup');
+      if (switchInLink) switchInLink.addEventListener('click', (e) => { e.preventDefault(); switchPageTab('signin'); });
+      if (switchUpLink) switchUpLink.addEventListener('click', (e) => { e.preventDefault(); switchPageTab('signup'); });
+
+      document.querySelectorAll('[data-demo-id]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-demo-id');
+          AuthManager.loginAsDemo(id);
+        });
+      });
+
+      document.querySelectorAll('#page-auth-forms-container .btn-toggle-password').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const input = document.getElementById(targetId);
+          if (input) {
+            const isPass = input.type === 'password';
+            input.type = isPass ? 'text' : 'password';
+            btn.innerHTML = isPass ? '&#128584;' : '&#128065;';
+          }
+        });
+      });
+
+      const formIn = document.getElementById('page-form-signin');
+      if (formIn) {
+        formIn.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const id = document.getElementById('page-signin-identifier').value;
+          const pass = document.getElementById('page-signin-password').value;
+          const remember = document.getElementById('page-signin-remember').checked;
+          const res = this.login(id, pass, remember);
+          if (!res.success) {
+            this.showPageAlert(res.message, 'error');
+          }
+        });
+      }
+
+      const formUp = document.getElementById('page-form-signup');
+      if (formUp) {
+        formUp.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const role = document.querySelector('input[name="page_reg_role"]:checked')?.value;
+          const name = document.getElementById('page-reg-fullname').value;
+          const agency = document.getElementById('page-reg-agency').value;
+          const email = document.getElementById('page-reg-email').value;
+          const phone = document.getElementById('page-reg-phone').value;
+          const badge = document.getElementById('page-reg-badge').value;
+          const password = document.getElementById('page-reg-password').value;
+          const confirmPassword = document.getElementById('page-reg-confirm-password').value;
+          const terms = document.getElementById('page-reg-terms').checked;
+
+          const res = this.register({
+            role, name, agency, email, phone, badge, password, confirmPassword, terms
+          });
+
+          if (!res.success) {
+            this.showPageAlert(res.message, 'error');
+          }
+        });
+      }
+
+      const btnPageLogout = document.getElementById('btn-page-logout');
+      if (btnPageLogout) {
+        btnPageLogout.addEventListener('click', () => this.logout());
+      }
+    },
+
+    renderLoginPageState() {
+      const user = this.getCurrentUser();
+      const loggedInView = document.getElementById('page-auth-logged-in');
+      const formsView = document.getElementById('page-auth-forms-container');
+
+      if (!formsView) return;
+      formsView.style.display = 'block';
+
+      if (loggedInView) {
+        if (user) {
+          loggedInView.style.display = 'flex';
+          document.getElementById('page-user-avatar').innerHTML = user.avatar || '&#128100;';
+          document.getElementById('page-user-greeting').textContent = `Active Session: ${user.name}`;
+          document.getElementById('page-user-sub').textContent = `Currently authenticated as ${user.role} (${user.agency}). You can switch accounts or sign in below:`;
+
+          document.getElementById('page-detail-name').textContent = user.name;
+          document.getElementById('page-detail-role').textContent = user.role;
+          document.getElementById('page-detail-agency').textContent = user.agency;
+          document.getElementById('page-detail-badge').textContent = user.badge;
+          document.getElementById('page-detail-clearance').textContent = user.clearance;
+        } else {
+          loggedInView.style.display = 'none';
+        }
+      }
+    },
+
+    showPageAlert(msg, type = 'error') {
+      const alertBox = document.getElementById('page-auth-alert');
+      if (alertBox) {
+        alertBox.className = `auth-alert auth-alert-${type}`;
+        alertBox.innerHTML = `<span>${type === 'error' ? '&#9888;' : '&#10004;'}</span> <span>${msg}</span>`;
+        alertBox.style.display = 'flex';
+      }
+    },
+
+    clearPageAlert() {
+      const alertBox = document.getElementById('page-auth-alert');
+      if (alertBox) {
+        alertBox.style.display = 'none';
+        alertBox.innerHTML = '';
+      }
+    },
+
+    init() {
+      this.injectAuthModal();
+      this.renderHeaderAuth();
+      this.updateDemoBar();
+      this.updatePageIfLoggedIn();
+
+      const path = window.location.pathname;
+      if (path.includes('login.html')) {
+        this.initLoginPage();
+      }
+    }
+  };
+
+  // --------------------------------------------------------------------------
   // 4. Inject Demo Control Toolbar at top of page
   // --------------------------------------------------------------------------
   function injectDemoToolbar() {
     const bar = document.createElement('div');
     bar.className = 'demo-control-bar';
+    const isDark = (document.documentElement.getAttribute('data-theme') || ThemeManager.getSavedTheme()) === 'dark';
     bar.innerHTML = `
       <div class="demo-title-group">
         <span class="demo-badge-tag">&#9874; Prototype Active</span>
         <span><strong>Viva Demo Engine:</strong> Live Data Synchronized Across All Pages</span>
       </div>
       <div class="demo-actions-group">
+        <button type="button" class="btn-demo" id="btn-demo-auth-status" title="Current Active Personnel (Click to Login / Switch)">
+          <span id="demo-auth-avatar">&#128100;</span>
+          <span id="demo-auth-label">Personnel: Guest (Sign In)</span>
+        </button>
+        <button type="button" class="btn-demo" id="btn-demo-theme" title="Toggle Theme (Dark / Light)">
+          <span class="theme-toggle-icon">${isDark ? '&#9728;' : '&#9790;'}</span>
+          <span class="theme-toggle-text">${isDark ? 'Light Mode' : 'Dark Mode'}</span>
+        </button>
         <button type="button" class="btn-demo btn-demo-accent" id="btn-quick-fill">
           <span>&#9889; Quick-Fill Form</span>
         </button>
@@ -172,6 +1280,8 @@
     document.body.insertBefore(bar, document.body.firstChild);
 
     // Event listeners
+    document.getElementById('btn-demo-auth-status').addEventListener('click', () => AuthManager.openModal());
+    document.getElementById('btn-demo-theme').addEventListener('click', () => ThemeManager.toggle());
     document.getElementById('btn-quick-fill').addEventListener('click', handleQuickFill);
     document.getElementById('btn-reset-data').addEventListener('click', () => {
       if (confirm('Reset prototype data to original demonstration state?')) {
@@ -189,7 +1299,29 @@
   function handleQuickFill() {
     const path = window.location.pathname;
 
-    if (path.includes('relief-requests.html')) {
+    if (path.includes('login.html')) {
+      const emailInput = document.getElementById('page-signin-identifier');
+      const passInput = document.getElementById('page-signin-password');
+      if (emailInput && passInput && emailInput.offsetParent !== null) {
+        emailInput.value = 'anita.nair@ndma.gov.in';
+        passInput.value = 'password123';
+        showToast('Form Autofilled', 'Incident Commander demo credentials loaded. Click "Authorize & Sign In".', 'success');
+      } else {
+        const regName = document.getElementById('page-reg-fullname');
+        if (regName) {
+          regName.value = 'Major Vikramaditya Sen';
+          document.getElementById('page-reg-email').value = 'v.sen@ndma.gov.in';
+          document.getElementById('page-reg-phone').value = '9845012399';
+          document.getElementById('page-reg-agency').value = 'National Disaster Response Force (NDRF)';
+          document.getElementById('page-reg-badge').value = 'NDRF-IC-9921';
+          document.getElementById('page-reg-password').value = 'password123';
+          document.getElementById('page-reg-confirm-password').value = 'password123';
+          const terms = document.getElementById('page-reg-terms');
+          if (terms) terms.checked = true;
+          showToast('Form Autofilled', 'New incident responder profile loaded for registration.', 'success');
+        }
+      }
+    } else if (path.includes('relief-requests.html')) {
       const form = document.querySelector('form');
       if (!form) return;
       form.querySelector('#requester-name').value = 'Maj. Arjun Sen';
@@ -895,7 +2027,9 @@
   // --------------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', function () {
     Store.init();
+    ThemeManager.init();
     injectDemoToolbar();
+    AuthManager.init();
 
     const path = window.location.pathname;
 
@@ -909,6 +2043,8 @@
       initAllocation();
     } else if (path.endsWith('volunteers.html')) {
       initVolunteers();
+    } else if (path.endsWith('login.html')) {
+      // Handled in AuthManager.init()
     } else {
       // index.html / default
       initDashboard();

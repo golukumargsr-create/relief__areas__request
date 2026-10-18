@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character Encoding and Responsive Viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReliefGrid - National Personnel Authentication and Responder Registration Portal for Disaster Operations.">
+  <title>ReliefGrid | Personnel Portal &amp; Registration</title>
+  <!-- Shared External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =======================================================================
+       TOP EMERGENCY BANNER (National Emergency Alert Ribbon)
+       ======================================================================= -->
+  <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
+    <div class="emergency-bar-content">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <strong>NATIONAL EMERGENCY OPERATIONS CENTER (NEOC) ACTIVE</strong> &mdash; 
+      Personnel Credentialing &amp; Role-Based Dispatch Security | Helpline: <strong>1070 / 112</strong>
+    </div>
+    <div class="emergency-bar-auth">
+      <a href="login.html" class="emergency-auth-link" id="top-bar-login-link" title="Sign In to Incident Command">&#128272; Login</a>
+      <span class="emergency-auth-divider">|</span>
+      <a href="login.html?tab=signup" class="emergency-auth-link" id="top-bar-signup-link" title="Register / Sign Up Personnel">&#9997; Sign Up</a>
+    </div>
+  </aside>
+
+  <!-- =======================================================================
+       SHARED SITE HEADER & NAVIGATION
+       ======================================================================= -->
+  <header class="site-header">
+    <div class="header-container">
+      <!-- Platform Branding -->
+      <a href="index.html" class="brand" aria-label="ReliefGrid Home">
+        <div class="brand-icon" aria-hidden="true">&#9951;</div>
+        <div class="brand-text">
+          <h1>ReliefGrid</h1>
+          <span class="subtitle">Disaster Relief Resource Platform</span>
+        </div>
+      </a>
+
+      <!-- Main Navigation Menu -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas</a></li>
+          <li><a href="allocation.html">Resource Allocation</a></li>
+          <li><a href="volunteers.html">Volunteers</a></li>
+          <li><a href="login.html" class="active" aria-current="page" title="Personnel Login & Registration">&#128272; Login / Portal</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" id="header-theme-toggle" aria-label="Toggle Dark and Light Mode" title="Toggle Theme (Dark / Light)">
+              <span class="theme-toggle-icon" aria-hidden="true">&#9790;</span>
+              <span class="theme-toggle-text">Dark</span>
+            </button>
+          </li>
+          <li class="nav-auth-item" id="header-auth-container">
+            <div class="nav-auth-buttons">
+              <a href="login.html" class="btn-nav-auth btn-nav-signin" id="btn-nav-signin" title="Sign In to Operational Console">
+                <span class="btn-auth-icon">&#128272;</span>
+                <span>Login</span>
+              </a>
+              <a href="login.html?tab=signup" class="btn-nav-auth btn-nav-signup" id="btn-nav-signup" title="Register / Sign Up Personnel">
+                <span class="btn-auth-icon">&#9997;</span>
+                <span>Sign Up</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       MAIN CONTENT CONTAINER
+       ======================================================================= -->
+  <main class="main-wrapper" id="main-content">
+
+    <!-- Page Header / Intro Section -->
+    <header class="page-intro">
+      <div>
+        <h2>Personnel Access &amp; Credentialing Gateway</h2>
+        <p>National emergency incident commanders, warehouse supply managers, triage field medics, and mobilized community volunteers authenticate here for role-based disaster operations.</p>
+      </div>
+      <div>
+        <span class="page-badge">Access Level: Secure Gov/NGO Network</span>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         TWO-COLUMN AUTH PORTAL GRID
+         =================================================================== -->
+    <div class="auth-portal-grid">
+      
+      <!-- Left Column: Operations & Security Context -->
+      <section class="auth-portal-hero" aria-labelledby="portal-context-title">
+        
+        <div class="hero-security-card">
+          <span class="hero-badge-tag">&#128737; Multi-Agency Disaster Coordination</span>
+          <h2 id="portal-context-title">Unified Emergency Operations Portal</h2>
+          <p>ReliefGrid enforces role-based access control (RBAC) to ensure swift logistics dispatch, tamper-proof inventory ledgers, and verified volunteer coordination under the National Disaster Management Act.</p>
+
+          <ul class="hero-features-list">
+            <li class="hero-feature-item">
+              <span class="feature-check-icon">&#10004;</span>
+              <div>
+                <strong>Role-Based Operational Views:</strong>
+                <span>Tailored dashboards for Incident Commanders, Logistics Officers, Field Medics, and Community Volunteers.</span>
+              </div>
+            </li>
+            <li class="hero-feature-item">
+              <span class="feature-check-icon">&#10004;</span>
+              <div>
+                <strong>Instant Local Verification:</strong>
+                <span>Synchronized across all six system modules with live audit tracking and persistent local state.</span>
+              </div>
+            </li>
+            <li class="hero-feature-item">
+              <span class="feature-check-icon">&#10004;</span>
+              <div>
+                <strong>Sphere Standard Compliance:</strong>
+                <span>Upholding minimum humanitarian standards in water, shelter, sanitation, and nutritional relief supply.</span>
+              </div>
+            </li>
+            <li class="hero-feature-item">
+              <span class="feature-check-icon">&#10004;</span>
+              <div>
+                <strong>1-Click Demonstration Accounts:</strong>
+                <span>Pre-configured roles ready for academic evaluation, scenario simulation, and viva demonstrations.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Verified Responding Agencies -->
+        <div class="hero-agencies-card">
+          <div class="agencies-title">Accredited Responding Agencies &amp; Bodies</div>
+          <div class="agencies-pills-row">
+            <span class="agency-pill">&#128658; NDRF National Battalions</span>
+            <span class="agency-pill">&#128658; State Disaster Management Authorities</span>
+            <span class="agency-pill">&#10010; Indian Red Cross Society</span>
+            <span class="agency-pill">&#127757; WHO Emergency Health Desk</span>
+            <span class="agency-pill">&#128101; Civil Defense Volunteer Corps</span>
+            <span class="agency-pill">&#9992; IAF Tactical Airlift Wings</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Authentication Card (Sign In & Sign Up) -->
+      <section class="auth-portal-card-container" aria-label="Authentication and Registration">
+        
+        <!-- Logged-in View (Shown if session is already active) -->
+        <div id="page-auth-logged-in" class="auth-logged-in-view" style="display: none;">
+          <div class="auth-logged-in-avatar" id="page-user-avatar">&#128100;</div>
+          <div>
+            <h3 id="page-user-greeting">Authenticated Session Active</h3>
+            <p id="page-user-sub" style="color: var(--color-text-muted); font-size: 0.9rem;">You are currently logged into the operational console.</p>
+          </div>
+
+          <div class="auth-session-details">
+            <div class="meta-row">
+              <span class="meta-label">Full Name:</span>
+              <strong id="page-detail-name">--</strong>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Assigned Role:</span>
+              <span id="page-detail-role" class="clearance-pill">--</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Agency:</span>
+              <span id="page-detail-agency">--</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Official Badge:</span>
+              <code id="page-detail-badge">--</code>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">Clearance Level:</span>
+              <span id="page-detail-clearance" class="clearance-pill">--</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; width: 100%; margin-top: 0.5rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn btn-primary" style="flex: 1; text-align: center;">Go to Operations Dashboard &rarr;</a>
+            <button type="button" class="btn btn-danger" id="btn-page-logout" style="flex: 1;">&#128682; Sign Out Session</button>
+          </div>
+        </div>
+
+        <!-- Forms View (Shown if no active session or switching account) -->
+        <div id="page-auth-forms-container">
+          
+          <div class="auth-modal-header" style="border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+            <div class="auth-modal-icon">&#9951;</div>
+            <div>
+              <h3>ReliefGrid Command Access</h3>
+              <p class="auth-modal-subtitle">Sign in with official credentials or register new responder identity</p>
+            </div>
+          </div>
+
+          <!-- Segmented Tab Switch: Sign In vs Sign Up -->
+          <div class="auth-tab-switch" role="tablist" aria-label="Portal Mode">
+            <button type="button" class="auth-tab-btn active" id="page-tab-signin" role="tab" aria-selected="true" aria-controls="page-panel-signin">
+              <span>&#128272;</span> Sign In
+            </button>
+            <button type="button" class="auth-tab-btn" id="page-tab-signup" role="tab" aria-selected="false" aria-controls="page-panel-signup">
+              <span>&#9997;</span> Sign Up / Register
+            </button>
+          </div>
+
+          <div class="auth-panel-body">
+            
+            <!-- Alert Banner Container -->
+            <div id="page-auth-alert" style="display: none;"></div>
+
+            <!-- =========================================================
+                 TAB 1: SIGN IN PANEL
+                 ========================================================= -->
+            <div id="page-panel-signin" role="tabpanel" aria-labelledby="page-tab-signin">
+              
+              <!-- 1-Click Fast Demonstration Logins -->
+              <div class="auth-demo-section">
+                <div class="auth-demo-label">
+                  <span>1-Click Viva Demo Accounts</span>
+                  <span class="auth-demo-tag">Instant Access</span>
+                </div>
+                <div class="auth-demo-grid">
+                  <button type="button" class="demo-account-card" data-demo-id="USR-CMD-01" title="Log in as Incident Commander">
+                    <span class="demo-account-avatar">&#128105;&#8205;&#9877;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Dr. Anita Nair</div>
+                      <div class="demo-account-role">Incident Commander</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-demo-id="USR-LOG-02" title="Log in as Logistics Head">
+                    <span class="demo-account-avatar">&#128104;&#8205;&#9992;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Capt. V.K. Jadeja</div>
+                      <div class="demo-account-role">Warehouse Logistics</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-demo-id="USR-MED-03" title="Log in as Medical Officer">
+                    <span class="demo-account-avatar">&#128104;&#8205;&#9877;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Dr. Ashwin Menon</div>
+                      <div class="demo-account-role">Field Medical Officer</div>
+                    </div>
+                  </button>
+
+                  <button type="button" class="demo-account-card" data-demo-id="USR-VOL-04" title="Log in as Volunteer Responder">
+                    <span class="demo-account-avatar">&#129464;&#8205;&#9792;&#65039;</span>
+                    <div class="demo-account-info">
+                      <div class="demo-account-name">Pooja Kadam</div>
+                      <div class="demo-account-role">Volunteer Responder</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div class="auth-divider">Or Sign In with Official Email / ID</div>
+
+              <!-- Standard Sign In Form -->
+              <form id="page-form-signin" class="auth-form" novalidate>
+                <div class="auth-field">
+                  <label for="page-signin-identifier">Official Email or Disaster Badge ID <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon" aria-hidden="true">&#9993;</span>
+                    <input type="text" id="page-signin-identifier" name="identifier" placeholder="e.g. anita.nair@ndma.gov.in or NDRF-IC-7749" required autocomplete="username">
+                  </div>
+                </div>
+
+                <div class="auth-field">
+                  <label for="page-signin-password">Passcode / Password <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon" aria-hidden="true">&#128274;</span>
+                    <input type="password" id="page-signin-password" name="password" placeholder="Enter secure credentials (demo: password123)" required autocomplete="current-password">
+                    <button type="button" class="btn-toggle-password" data-target="page-signin-password" aria-label="Toggle password visibility">&#128065;</button>
+                  </div>
+                </div>
+
+                <div class="auth-form-row">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="page-signin-remember" checked>
+                    <span>Keep session active on this workstation</span>
+                  </label>
+                  <a href="#" class="auth-link" id="link-forgot-password">Need Help?</a>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="btn-page-submit-signin">
+                  <span>&#128272;</span> Authorize &amp; Sign In
+                </button>
+
+                <p class="auth-switch-note">
+                  New emergency personnel or volunteer responder? 
+                  <a href="#" class="auth-link" id="page-switch-to-signup">Register / Sign Up here &rarr;</a>
+                </p>
+              </form>
+
+            </div>
+
+            <!-- =========================================================
+                 TAB 2: SIGN UP / REGISTRATION PANEL ("Signing option")
+                 ========================================================= -->
+            <div id="page-panel-signup" role="tabpanel" aria-labelledby="page-tab-signup" style="display: none;">
+              
+              <form id="page-form-signup" class="auth-form" novalidate>
+                
+                <!-- Role Selection Pills -->
+                <div class="auth-field">
+                  <label>Select Your Operational Duty Role <span class="required-indicator">*</span></label>
+                  <div class="role-pills-selector">
+                    <label class="role-pill-option">
+                      <input type="radio" name="page_reg_role" value="Incident Commander" checked>
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128737;</span>
+                        <span class="role-pill-text">Incident Commander</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="page_reg_role" value="Warehouse Logistics Head">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128230;</span>
+                        <span class="role-pill-text">Logistics Officer</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="page_reg_role" value="Field Medical Officer">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#128104;&#8205;&#9877;&#65039;</span>
+                        <span class="role-pill-text">Medical Medic</span>
+                      </div>
+                    </label>
+
+                    <label class="role-pill-option">
+                      <input type="radio" name="page_reg_role" value="Registered Volunteer Responder">
+                      <div class="role-pill-card">
+                        <span class="role-pill-icon">&#129309;</span>
+                        <span class="role-pill-text">Volunteer</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Full Name -->
+                <div class="auth-field">
+                  <label for="page-reg-fullname">Full Official Name <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon" aria-hidden="true">&#128100;</span>
+                    <input type="text" id="page-reg-fullname" name="fullname" placeholder="e.g. Major Vikram Sen" required autocomplete="name">
+                  </div>
+                </div>
+
+                <!-- Agency / Organization -->
+                <div class="auth-field">
+                  <label for="page-reg-agency">Organization / Disaster Relief Agency <span class="required-indicator">*</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon" aria-hidden="true">&#127970;</span>
+                    <select id="page-reg-agency" name="agency" required>
+                      <option value="National Disaster Response Force (NDRF)" selected>National Disaster Response Force (NDRF)</option>
+                      <option value="State Disaster Management Authority (SDMA)">State Disaster Management Authority (SDMA)</option>
+                      <option value="District Emergency Operations Center (DEOC)">District Emergency Operations Center (DEOC)</option>
+                      <option value="Indian Red Cross Society (IRCS)">Indian Red Cross Society (IRCS)</option>
+                      <option value="Civil Defense &amp; Home Guards">Civil Defense &amp; Home Guards</option>
+                      <option value="Directorate of Health Services (DHS)">Directorate of Health Services (DHS)</option>
+                      <option value="Independent Humanitarian Volunteer">Independent Humanitarian Volunteer</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Two-column grid for Email & Contact -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div class="auth-field">
+                    <label for="page-reg-email">Official / Contact Email <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon" aria-hidden="true">&#9993;</span>
+                      <input type="email" id="page-reg-email" name="email" placeholder="name@agency.org" required autocomplete="email">
+                    </div>
+                  </div>
+
+                  <div class="auth-field">
+                    <label for="page-reg-phone">Emergency Phone <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon" aria-hidden="true">&#128222;</span>
+                      <input type="tel" id="page-reg-phone" name="phone" placeholder="10-digit mobile" required autocomplete="tel">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Badge ID (Optional) -->
+                <div class="auth-field">
+                  <label for="page-reg-badge">Gov / Agency Badge ID <span class="field-help">(Optional &mdash; auto-generated if left blank)</span></label>
+                  <div class="input-with-icon">
+                    <span class="field-icon" aria-hidden="true">&#127380;</span>
+                    <input type="text" id="page-reg-badge" name="badge" placeholder="e.g. NDRF-IC-9921">
+                  </div>
+                </div>
+
+                <!-- Password and Confirm Password -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div class="auth-field">
+                    <label for="page-reg-password">Create Password <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon" aria-hidden="true">&#128274;</span>
+                      <input type="password" id="page-reg-password" name="password" placeholder="Min 6 characters" required autocomplete="new-password">
+                      <button type="button" class="btn-toggle-password" data-target="page-reg-password" aria-label="Toggle password visibility">&#128065;</button>
+                    </div>
+                  </div>
+
+                  <div class="auth-field">
+                    <label for="page-reg-confirm-password">Confirm Password <span class="required-indicator">*</span></label>
+                    <div class="input-with-icon">
+                      <span class="field-icon" aria-hidden="true">&#128274;</span>
+                      <input type="password" id="page-reg-confirm-password" name="confirm_password" placeholder="Re-type password" required autocomplete="new-password">
+                      <button type="button" class="btn-toggle-password" data-target="page-reg-confirm-password" aria-label="Toggle password visibility">&#128065;</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Declaration Checkbox -->
+                <div class="auth-field" style="margin-top: 0.25rem;">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="page-reg-terms" required>
+                    <span style="font-size: 0.78rem;">I affirm compliance with the Sphere Humanitarian Charter, NDRF code of conduct, and declare the information provided is accurate under penalty of emergency service law.</span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn-auth-submit" id="btn-page-submit-signup">
+                  <span>&#9997;</span> Complete Registration &amp; Sign In
+                </button>
+
+                <p class="auth-switch-note">
+                  Already have an authorized responder account? 
+                  <a href="#" class="auth-link" id="page-switch-to-signin">Sign In to Operations &rarr;</a>
+                </p>
+              </form>
+
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- =======================================================================
+       SITE FOOTER & EMERGENCY CONTACTS
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <!-- Column 1: Mission Statement -->
+      <div class="footer-col">
+        <h4>ReliefGrid Coordination Platform</h4>
+        <p>A unified open disaster management framework engineered to bridge emergency supply shortfalls, direct volunteer logistics, and facilitate inter-agency humanitarian response during natural calamities.</p>
+        <p class="field-help" style="color:#94a3b8;">Academic Project: Internet Programming Course (HTML5 &amp; CSS3).</p>
+      </div>
+
+      <!-- Column 2: Navigation Links -->
+      <div class="footer-col">
+        <h4>System Modules</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Operations Dashboard</a></li>
+          <li><a href="relief-requests.html">Relief Requests</a></li>
+          <li><a href="inventory.html">Warehouse Inventory</a></li>
+          <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
+          <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
+          <li><a href="volunteers.html">Volunteer Management</a></li>
+          <li><a href="login.html">Personnel Portal (Login / Register)</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Response Standards -->
+      <div class="footer-col">
+        <h4>Response Protocols</h4>
+        <ul class="footer-links">
+          <li><a href="#main-content">NDRF Standard Operating Proc.</a></li>
+          <li><a href="#main-content">Sphere Humanitarian Charter</a></li>
+          <li><a href="#main-content">Cold-Chain Vaccine Rules</a></li>
+          <li><a href="#main-content">Air-Drop Safety Guidelines</a></li>
+          <li><a href="#main-content">Rapid Damage Assessment</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: 24/7 Helplines -->
+      <div class="footer-col">
+        <h4>Emergency Control</h4>
+        <ul class="emergency-hotlines">
+          <li>National Emergency: <span>112</span></li>
+          <li>Disaster Helpline: <span>1070</span></li>
+          <li>State Control Room: <span>1077</span></li>
+          <li>Ambulance Service: <span>108</span></li>
+          <li>Red Cross Relief: <span>1800-11-2233</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Compliance -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 ReliefGrid Disaster Management System. Built strictly with semantic HTML5 and CSS3 (WCAG AA Compliant).</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Prototype Engine (Viva Demonstration & LocalStorage State) -->
+  <script src="prototype.js"></script>
+</body>
+</html>

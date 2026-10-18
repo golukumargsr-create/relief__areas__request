@@ -11,9 +11,16 @@
 
   <!-- Top Emergency Ribbon -->
   <aside class="top-emergency-bar" aria-label="Emergency Operations Announcement">
-    <span class="pulse-dot" aria-hidden="true"></span>
-    <strong>VOLUNTEER MOBILIZATION &amp; DEPLOYMENT NETWORK</strong> &mdash; 
-    Volunteers must report to District Incident Command Centers for safety briefings.
+    <div class="emergency-bar-content">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <strong>VOLUNTEER MOBILIZATION &amp; DEPLOYMENT NETWORK</strong> &mdash; 
+      District Incident Command Center Roster | Helpline: <strong>1070 / 112</strong>
+    </div>
+    <div class="emergency-bar-auth">
+      <a href="login.html" class="emergency-auth-link" id="top-bar-login-link" title="Sign In to Incident Command">&#128272; Login</a>
+      <span class="emergency-auth-divider">|</span>
+      <a href="login.html?tab=signup" class="emergency-auth-link" id="top-bar-signup-link" title="Register / Sign Up Personnel">&#9997; Sign Up</a>
+    </div>
   </aside>
 
   <!-- Shared Header & Navigation -->
@@ -35,6 +42,25 @@
           <li><a href="affected-areas.html">Affected Areas</a></li>
           <li><a href="allocation.html">Resource Allocation</a></li>
           <li><a href="volunteers.html" class="active" aria-current="page">Volunteers</a></li>
+          <li><a href="login.html" class="nav-portal-link" title="Authorized Responder Portal">&#128272; Login / Portal</a></li>
+          <li>
+            <button type="button" class="theme-toggle-btn" id="header-theme-toggle" aria-label="Toggle Dark and Light Mode" title="Toggle Theme (Dark / Light)">
+              <span class="theme-toggle-icon" aria-hidden="true">&#9790;</span>
+              <span class="theme-toggle-text">Dark</span>
+            </button>
+          </li>
+          <li class="nav-auth-item" id="header-auth-container">
+            <div class="nav-auth-buttons">
+              <a href="login.html" class="btn-nav-auth btn-nav-signin" id="btn-nav-signin" title="Sign In to Operational Console">
+                <span class="btn-auth-icon">&#128272;</span>
+                <span>Login</span>
+              </a>
+              <a href="login.html?tab=signup" class="btn-nav-auth btn-nav-signup" id="btn-nav-signup" title="Register / Sign Up Personnel">
+                <span class="btn-auth-icon">&#9997;</span>
+                <span>Sign Up</span>
+              </a>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
@@ -48,8 +74,13 @@
         <h2>Volunteer Mobilization &amp; Field Deployment</h2>
         <p>Register citizen responders, doctors, search-and-rescue divers, heavy equipment operators, and counselors. Coordinate ground duties and shifts across affected relief sectors.</p>
       </div>
-      <div>
+      <div class="page-intro-right">
         <span class="page-badge">Active Mobilization: 640 Responders</span>
+        <div class="page-auth-prompt" id="page-auth-prompt">
+          <span class="auth-prompt-text">&#128737; Emergency Personnel:</span>
+          <a href="login.html" class="btn-prompt-login" id="prompt-login-btn" title="Sign In to Command Portal">&#128272; Login</a>
+          <a href="login.html?tab=signup" class="btn-prompt-signup" id="prompt-signup-btn" title="Register New Responder">&#9997; Sign Up</a>
+        </div>
       </div>
     </header>
 
@@ -380,6 +411,7 @@
           <li><a href="affected-areas.html">Affected Areas Tracker</a></li>
           <li><a href="allocation.html">Dispatch &amp; Allocation</a></li>
           <li><a href="volunteers.html">Volunteer Management</a></li>
+          <li><a href="login.html">Personnel Portal (Login / Register)</a></li>
         </ul>
       </div>
 
